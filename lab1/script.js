@@ -19,7 +19,7 @@ function fetchArticles(topic) {
   //create a new request
   var request = new XMLHttpRequest();
   //open a new connection, using the GET request on the URL endpoint
-  const key = "5fdd8ee8d5484e14a0ee36be12f2d8ee";
+  const key = "1c695ca439ca400fbe441d6de251b59f";
   const articlenum = 100;
   const language = "en";
   request.open(
