@@ -16,8 +16,8 @@ footer {
 }
 
 .col {
-  margin: 0!important;
-  padding: 0!important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .card-img-top {
@@ -27,12 +27,12 @@ footer {
   transition: 0.5s;
 }
 
-.card-img-top:hover{
+.card-img-top:hover {
   opacity: 0.5;
 }
 
 .card-title {
-  font-size: 1.3em!important;
+  font-size: 1.3em !important;
   transition: 0.5s;
 }
 
@@ -41,7 +41,7 @@ footer {
 }
 
 h5 {
-  font-size: 1em!important;
+  font-size: 1em !important;
 }
 
 .card-footer {

@@ -1,11 +1,15 @@
-const card1 = document.getElementById("card1");
-const card2 = document.getElementById("card2");
-const card3 = document.getElementById("card3");
-const card4 = document.getElementById("card4");
-const card5 = document.getElementById("card5");
-const cards = [card1, card2, card3, card4, card5];
+const cardsContainer = document.getElementById("cardsContainer");
+for (let i = 0; i < 5; i++) {
+  const col = document.createElement("div");
+  col.setAttribute("class", "col");
+  const card = document.createElement("div");
+  card.setAttribute("class", "card h-100 rounded-0 border-dark");
+  col.appendChild(card);
+  cardsContainer.appendChild(col);
+}
+const cards = document.querySelectorAll(".card");
 
-let topics = ["Movie", "Anime"];
+let topics = ["Gaming", "Anime"];
 let currentTopicIndex = 0;
 let articles = [];
 
@@ -17,6 +21,7 @@ function fetchArticles(topic) {
   //open a new connection, using the GET request on the URL endpoint
   const key = "5fdd8ee8d5484e14a0ee36be12f2d8ee";
   const articlenum = 100;
+  const language = "en";
   request.open(
     "GET",
     "https://newsapi.org/v2/everything?q=" +
@@ -24,7 +29,9 @@ function fetchArticles(topic) {
       "&apiKey=" +
       key +
       "&pageSize=" +
-      articlenum,
+      articlenum +
+      "&language=" +
+      language,
     true
   );
 
@@ -55,7 +62,7 @@ function displayNews() {
   //     currentArticleIndex = 0;
   //     break;
   //   }
-  for(let i = 0; i < 5; i++) {
+  for (let i = 0; i < 5; i++) {
     let randomIndex = Math.floor(Math.random() * articles.length);
     while (randomIndexes.includes(randomIndex)) {
       randomIndex = Math.floor(Math.random() * articles.length);
@@ -75,7 +82,7 @@ function displayNews() {
     const image = document.createElement("img");
     image.setAttribute("class", "card-img-top rounded-0");
     const CardBody = document.createElement("div");
-    CardBody.setAttribute("class", "card-body");
+    CardBody.setAttribute("class", "card-body text-center");
     const title = document.createElement("h5");
     const CardFooter = document.createElement("div");
     CardFooter.setAttribute("class", "card-footer");
@@ -90,7 +97,11 @@ function displayNews() {
     small2.setAttribute("class", "text-muted");
     small2.textContent = "Date: ";
     title.textContent = article.title;
-    small1.textContent += article.author ? (article.author.split(",").length >= 3 ?  article.author.split(",").slice(0, 1).concat(" et al.").join("") :  article.author) : "Unknown";
+    small1.textContent += article.author
+      ? article.author.split(",").length >= 3
+        ? article.author.split(",").slice(0, 1).concat(" et al.").join("")
+        : article.author
+      : "Unknown";
     small2.textContent += article.publishedAt.substring(0, 10);
     image.src = article.urlToImage;
     link.href = article.url;
