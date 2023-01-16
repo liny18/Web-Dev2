@@ -16,7 +16,7 @@ function fetchArticles(topic) {
   var request = new XMLHttpRequest();
   //open a new connection, using the GET request on the URL endpoint
   const key = "5fdd8ee8d5484e14a0ee36be12f2d8ee";
-  const articlenum = 10;
+  const articlenum = 100;
   request.open(
     "GET",
     "https://newsapi.org/v2/everything?q=" +
@@ -77,12 +77,12 @@ function displayNews() {
     const small2 = document.createElement("small");
     small2.setAttribute("class", "text-muted");
     small2.textContent = "Date: ";
-    title.textContent = article.title.substring(0, 50) + "...";
-    small1.textContent += article.author;
+    title.textContent = article.title;
+    small1.textContent += article.author ? (article.author.split(",").length >= 3 ?  article.author.split(",").slice(0, 1).concat(" et al.").join("") :  article.author) : "Unknown";
     small2.textContent += article.publishedAt.substring(0, 10);
     image.src = article.urlToImage;
     link.href = article.url;
-    link.textContent = article.source.name;
+    link.textContent = article.source.name.replace(/.com$/, "");
     source.appendChild(link);
     sourceContainer.appendChild(source);
     CardBody.appendChild(title);
