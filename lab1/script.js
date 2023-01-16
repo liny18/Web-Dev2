@@ -67,6 +67,8 @@ function displayNews() {
     const CardBody = document.createElement("div");
     CardBody.setAttribute("class", "card-body");
     const title = document.createElement("h5");
+    const CardFooter = document.createElement("div");
+    CardFooter.setAttribute("class", "card-footer");
     const author = document.createElement("p");
     author.setAttribute("class", "card-text mb-0");
     const small1 = document.createElement("small");
@@ -86,13 +88,14 @@ function displayNews() {
     source.appendChild(link);
     sourceContainer.appendChild(source);
     CardBody.appendChild(title);
-    CardBody.appendChild(author);
-    CardBody.appendChild(date);
+    CardFooter.appendChild(author);
+    CardFooter.appendChild(date);
     author.appendChild(small1);
     date.appendChild(small2);
     cards[i % 5].appendChild(sourceContainer);
     cards[i % 5].appendChild(image);
     cards[i % 5].appendChild(CardBody);
+    cards[i % 5].appendChild(CardFooter);
   }
   currentArticleIndex += 5;
   if (currentArticleIndex >= articles.length) {
