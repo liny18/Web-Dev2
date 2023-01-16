@@ -24,6 +24,7 @@
       defer
       src="https://requirejs.org/docs/release/2.3.6/minified/require.js"
     ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
     <div class="d-flex flex-column vh-100 overflow-x-hidden overflow-y-scroll">
@@ -37,6 +38,30 @@
           </button>
         </div>
       </main>
+      <div class="modal bg-black" id="topic-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enter your desired topics</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="topic-form">
+                        <div class="form-group">
+                            <label for="topic1">Topic 1:</label>
+                            <input type="text" class="form-control" id="topic1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="topic2">Topic 2:</label>
+                            <input type="text" class="form-control" id="topic2" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-dark" id="submit-topics">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>    
       <footer class="vw-100 d-flex align-items-center justify-content-center fill">
         <h4>Barnacles News</h4>
       </footer>
