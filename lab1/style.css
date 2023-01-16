@@ -24,6 +24,20 @@ footer {
   width: 100%;
   height: 35vw;
   object-fit: cover;
+  transition: 0.5s;
+}
+
+.card-img-top:hover{
+  opacity: 0.5;
+}
+
+.card-title {
+  font-size: 1.3em!important;
+  transition: 0.5s;
+}
+
+.card-title:hover {
+  transform: scale(1.1);
 }
 
 h5 {

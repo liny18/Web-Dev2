@@ -46,22 +46,32 @@ function fetchArticles(topic) {
 }
 
 let currentArticleIndex = 0;
+let randomIndexes = [];
 
-// Display 5 articles at a time from the "articles" array
+// Display 5 random articles at a time from the "articles" array
 function displayNews() {
-  for (let i = currentArticleIndex; i < currentArticleIndex + 5; i++) {
-    if (i >= articles.length) {
-      currentArticleIndex = 0;
-      break;
+  // for (let i = currentArticleIndex; i < currentArticleIndex + 5; i++) {
+  //   if (i >= articles.length) {
+  //     currentArticleIndex = 0;
+  //     break;
+  //   }
+  for(let i = 0; i < 5; i++) {
+    let randomIndex = Math.floor(Math.random() * articles.length);
+    while (randomIndexes.includes(randomIndex)) {
+      randomIndex = Math.floor(Math.random() * articles.length);
     }
-    const article = articles[i];
-    cards[i % 5].innerHTML = "";
+    randomIndexes.push(randomIndex);
+    const article = articles[randomIndex];
+    cards[i].innerHTML = "";
     const sourceContainer = document.createElement("div");
     sourceContainer.setAttribute("class", "card-header text-center");
     const source = document.createElement("h5");
     source.setAttribute("class", "card-title");
     const link = document.createElement("a");
     link.setAttribute("class", "text-dark");
+    link.setAttribute("target", "_blank");
+    const imageLink = document.createElement("a");
+    imageLink.setAttribute("target", "_blank");
     const image = document.createElement("img");
     image.setAttribute("class", "card-img-top rounded-0");
     const CardBody = document.createElement("div");
@@ -85,6 +95,8 @@ function displayNews() {
     image.src = article.urlToImage;
     link.href = article.url;
     link.textContent = article.source.name.replace(/.com$/, "");
+    imageLink.href = article.url;
+    imageLink.appendChild(image);
     source.appendChild(link);
     sourceContainer.appendChild(source);
     CardBody.appendChild(title);
@@ -92,15 +104,16 @@ function displayNews() {
     CardFooter.appendChild(date);
     author.appendChild(small1);
     date.appendChild(small2);
-    cards[i % 5].appendChild(sourceContainer);
-    cards[i % 5].appendChild(image);
-    cards[i % 5].appendChild(CardBody);
-    cards[i % 5].appendChild(CardFooter);
+    cards[i].appendChild(sourceContainer);
+    cards[i].appendChild(imageLink);
+    cards[i].appendChild(CardBody);
+    cards[i].appendChild(CardFooter);
   }
-  currentArticleIndex += 5;
-  if (currentArticleIndex >= articles.length) {
-    currentArticleIndex = 0;
-  }
+  randomIndexes = []; // reset the random indexes
+  // currentArticleIndex += 5;
+  // if (currentArticleIndex >= articles.length) {
+  //   currentArticleIndex = 0;
+  // }
 }
 fetchArticles(topics[currentTopicIndex++]);
 fetchArticles(topics[currentTopicIndex]);
