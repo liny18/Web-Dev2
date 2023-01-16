@@ -1,4 +1,15 @@
 const cardsContainer = document.getElementById("cardsContainer");
+const prevButton = document.getElementById("prev-button");
+let cards = [];
+let topics = ["Movie", "Anime"];
+let currentTopicIndex = 0;
+let articles = [];
+let timeoutId;
+let currentArticleIndex = 0;
+let randomIndexes = [];
+let lastDisplayedArticles = [];
+let currentArticles = [];
+
 for (let i = 0; i < 5; i++) {
   const col = document.createElement("div");
   col.setAttribute("class", "col");
@@ -6,70 +17,30 @@ for (let i = 0; i < 5; i++) {
   card.setAttribute("class", "card h-100 rounded-0 border-dark");
   col.appendChild(card);
   cardsContainer.appendChild(col);
+  cards.push(card);
 }
-const cards = document.querySelectorAll(".card");
-
-let topics = ["Gaming", "Anime"];
-let currentTopicIndex = 0;
-let articles = [];
 
 // Fetch the articles for the current topic and store them in the "articles" array
 function fetchArticles(topic) {
-  console.log("Fetching articles for topic: " + topic);
-  //create a new request
-  var request = new XMLHttpRequest();
-  //open a new connection, using the GET request on the URL endpoint
   const key = "1c695ca439ca400fbe441d6de251b59f";
   const articlenum = 100;
   const language = "en";
-  request.open(
-    "GET",
-    "https://newsapi.org/v2/everything?q=" +
-      topic +
-      "&apiKey=" +
-      key +
-      "&pageSize=" +
-      articlenum +
-      "&language=" +
-      language,
-    true
-  );
-
-  request.onload = function () {
-    // Begin accessing JSON data here
-    if (request.status >= 200 && request.status < 400) {
-      const data = JSON.parse(this.response);
+  const url = `https://newsapi.org/v2/everything?q=${topic}&apiKey=${key}&pageSize=${articlenum}&language=${language}`;
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
       articles = articles.concat(data.articles);
+      articles = articles.filter(article => article.title && article.author && article.urlToImage);
       if (topic == topics[topics.length - 1]) {
         displayNews();
-        setInterval(displayNews, 5000);
       }
-    } else {
-      console.log("error");
-    }
-  };
-  //send request
-  request.send();
+    })
+    .catch(error => console.log(error));
 }
 
-let currentArticleIndex = 0;
-let randomIndexes = [];
 
-// Display 5 random articles at a time from the "articles" array
-function displayNews() {
-  // for (let i = currentArticleIndex; i < currentArticleIndex + 5; i++) {
-  //   if (i >= articles.length) {
-  //     currentArticleIndex = 0;
-  //     break;
-  //   }
-  for (let i = 0; i < 5; i++) {
-    let randomIndex = Math.floor(Math.random() * articles.length);
-    while (randomIndexes.includes(randomIndex)) {
-      randomIndex = Math.floor(Math.random() * articles.length);
-    }
-    randomIndexes.push(randomIndex);
-    const article = articles[randomIndex];
-    cards[i].innerHTML = "";
+function updateCard(article, card) {
+    card.innerHTML = "";
     const sourceContainer = document.createElement("div");
     sourceContainer.setAttribute("class", "card-header text-center");
     const source = document.createElement("h5");
@@ -77,13 +48,28 @@ function displayNews() {
     const link = document.createElement("a");
     link.setAttribute("class", "text-dark");
     link.setAttribute("target", "_blank");
+    link.href = article.url;
+    link.textContent = article.source.name;
+    source.appendChild(link);
+    sourceContainer.appendChild(source);
+    card.appendChild(sourceContainer);
+
     const imageLink = document.createElement("a");
     imageLink.setAttribute("target", "_blank");
+    imageLink.href = article.url;
     const image = document.createElement("img");
     image.setAttribute("class", "card-img-top rounded-0");
+    image.src = article.urlToImage;
+    imageLink.appendChild(image);
+    card.appendChild(imageLink);
+
     const CardBody = document.createElement("div");
     CardBody.setAttribute("class", "card-body text-center");
     const title = document.createElement("h5");
+    title.textContent = article.title;
+    CardBody.appendChild(title);
+    card.appendChild(CardBody);
+
     const CardFooter = document.createElement("div");
     CardFooter.setAttribute("class", "card-footer");
     const author = document.createElement("p");
@@ -91,40 +77,63 @@ function displayNews() {
     const small1 = document.createElement("small");
     small1.setAttribute("class", "text-muted");
     small1.textContent = "Author: ";
+    author.appendChild(small1);
+    CardFooter.appendChild(author);
     const date = document.createElement("p");
     date.setAttribute("class", "card-text");
     const small2 = document.createElement("small");
     small2.setAttribute("class", "text-muted");
     small2.textContent = "Date: ";
     title.textContent = article.title;
-    small1.textContent += article.author
-      ? article.author.split(",").length >= 3
-        ? article.author.split(",").slice(0, 1).concat(" et al.").join("")
-        : article.author
-      : "Unknown";
+    small1.textContent += article.author ? (article.author.split(",").length >= 3 ?  article.author.split(",").slice(0, 1).concat(" et al.").join("") :  article.author) : "Unknown";
     small2.textContent += article.publishedAt.substring(0, 10);
-    image.src = article.urlToImage;
-    link.href = article.url;
-    link.textContent = article.source.name.replace(/.com$/, "");
-    imageLink.href = article.url;
-    imageLink.appendChild(image);
-    source.appendChild(link);
-    sourceContainer.appendChild(source);
-    CardBody.appendChild(title);
-    CardFooter.appendChild(author);
-    CardFooter.appendChild(date);
-    author.appendChild(small1);
     date.appendChild(small2);
-    cards[i].appendChild(sourceContainer);
-    cards[i].appendChild(imageLink);
-    cards[i].appendChild(CardBody);
-    cards[i].appendChild(CardFooter);
+    CardFooter.appendChild(date);
+    card.appendChild(CardFooter);
+}
+// Display 5 random articles at a time from the "articles" array
+function displayNews() {
+  // for (let i = currentArticleIndex; i < currentArticleIndex + 5; i++) {
+  //   if (i >= articles.length) {
+  //     currentArticleIndex = 0;
+  //     break;
+  //   }
+  lastDisplayedArticles = currentArticles;
+  currentArticles = [];
+  for (let i = 0; i < 5; i++) {
+    let randomIndex = Math.floor(Math.random() * articles.length);
+    while (randomIndexes.includes(randomIndex)) {
+      randomIndex = Math.floor(Math.random() * articles.length);
+    }
+    randomIndexes.push(randomIndex);
+    const article = articles[randomIndex];
+    currentArticles.push(article);
+    // const article = articles[i];
+    const card = cards[i];
+    updateCard(article, card);
   }
+  prevButton.style.display = "block";
   randomIndexes = []; // reset the random indexes
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(displayNews, 5000);
   // currentArticleIndex += 5;
   // if (currentArticleIndex >= articles.length) {
   //   currentArticleIndex = 0;
   // }
 }
-fetchArticles(topics[currentTopicIndex++]);
-fetchArticles(topics[currentTopicIndex]);
+
+prevButton.addEventListener("click", function() {
+  if (lastDisplayedArticles.length > 0) {
+    prevButton.style.display = "none";
+    currentArticles = lastDisplayedArticles;
+    for(let i = 0; i < 5; i++) {
+      const article = currentArticles[i];
+      const card = cards[i];
+      updateCard(article, card);
+    }
+  }
+});
+
+topics.forEach(topic => {
+  fetchArticles(topic);
+});
