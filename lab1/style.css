@@ -137,3 +137,20 @@ a {
 h1 {
   flex: 1;
 }
+
+.modal {
+  background-color: rgb(139, 205, 243);
+}
+
+.btn,
+.modal-header {
+  background-color: #f3b6d5!important;
+  border: none!important;
+  color: white!important;
+}
+
+.btn:hover {
+  background-color: white!important;
+  border: 1px #f3b6d5 solid!important;
+  color: #f3b6d5!important;
+}

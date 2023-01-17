@@ -2,7 +2,7 @@ const cardsContainer = document.getElementById("cardsContainer");
 const prevButton = document.getElementById("prev-button");
 const modal = document.getElementById("topic-modal");
 let cards = [];
-let topics = ["Movie","Anime"];
+let topics = [];
 let currentTopicIndex = 0;
 let articles = [];
 let timeoutId;
@@ -21,24 +21,24 @@ for (let i = 0; i < 5; i++) {
   cards.push(card);
 }
 
-// window.onload = function() {
-//   modal.classList.add("show");
-//   modal.style.display = "block";
-// };
+window.onload = function() {
+  modal.classList.add("show");
+  modal.style.display = "block";
+};
 
-// const submitButton = document.getElementById("submit-topics");
-// submitButton.addEventListener("click", function() {
-//     const topic1 = document.getElementById("topic1").value;
-//     const topic2 = document.getElementById("topic2").value;
-//     if (topic1.toLowerCase() === topic2.toLowerCase() || topic1 === "" || topic2 === "") {
-//       alert("Please enter two different topics");
-//       return;
-//     }
-//     topics = [topic1, topic2];
-//     topics.forEach(topic => fetchArticles(topic));
-//     modal.classList.remove("show");
-//     modal.style.display = "none";
-// });
+const submitButton = document.getElementById("submit-topics");
+submitButton.addEventListener("click", function() {
+    const topic1 = document.getElementById("topic1").value;
+    const topic2 = document.getElementById("topic2").value;
+    if (topic1.toLowerCase() === topic2.toLowerCase() || topic1 === "" || topic2 === "") {
+      alert("Please enter two different topics");
+      return;
+    }
+    topics = [topic1, topic2];
+    topics.forEach(topic => fetchArticles(topic));
+    modal.classList.remove("show");
+    modal.style.display = "none";
+});
 
 // Fetch the articles for the current topic and store them in the "articles" array
 function fetchArticles(topic) {
@@ -154,8 +154,4 @@ prevButton.addEventListener("click", function() {
       updateCard(article, card);
     }
   }
-});
-
-topics.forEach((topic) => {
-  fetchArticles(topic);
 });
