@@ -8,23 +8,38 @@ body {
 
 header,
 footer {
-  background-color: rgb(0, 0, 0);
-  color: white;
+  /* background-color: rgba(0, 0, 0, 0.9); */
   padding: 10px;
   text-align: center;
   font-size: 1rem;
+  border: 3px solid black;
+  border-radius: 10px;
+  margin: 20px;
 }
 
-.col {
+header {
+  color: #f3b6d5;
+}
+
+footer {
+  color: rgb(139, 205, 243);
+}
+
+/* .col {
   margin: 0 !important;
   padding: 0 !important;
-}
+} */
 
 .card-img-top {
   width: 100%;
-  height: 35vw;
+  height: 25vw;
   object-fit: cover;
   transition: 0.5s;
+}
+
+.imageWrapper {
+  padding-bottom: 20px;
+  border-bottom: 2px solid black;
 }
 
 .card-img-top:hover {
@@ -59,7 +74,7 @@ h5 {
   top: 50%;
   left: 0;
   z-index: 10;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 164, 45, 0.8);
   color: white;
   padding: 10px;
   border: none;
@@ -70,7 +85,7 @@ h5 {
 }
 
 #prev-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(255, 164, 45, 1);
   transform: scale(1.1);
 }
 
@@ -88,4 +103,37 @@ h5 {
 #topic-modal .modal-header {
   background-color: black;
   color: #fff; /* white */
+}
+
+#cardsContainer {
+  margin: 20px 10px;
+}
+
+a {
+  font-variant: small-caps;
+}
+
+.card-header {
+  background-color: rgb(139, 205, 243)!important;
+}
+
+
+.card-footer {
+  background-color: #f3b6d5!important;
+  height: 80px;
+}
+
+.card-body {
+  height: 100px;
+}
+
+#logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px #f3b6d5 solid;
+}
+
+h1 {
+  flex: 1;
 }

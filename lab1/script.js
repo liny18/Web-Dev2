@@ -2,7 +2,7 @@ const cardsContainer = document.getElementById("cardsContainer");
 const prevButton = document.getElementById("prev-button");
 const modal = document.getElementById("topic-modal");
 let cards = [];
-let topics = [];
+let topics = ["Movie","Anime"];
 let currentTopicIndex = 0;
 let articles = [];
 let timeoutId;
@@ -15,30 +15,30 @@ for (let i = 0; i < 5; i++) {
   const col = document.createElement("div");
   col.setAttribute("class", "col");
   const card = document.createElement("div");
-  card.setAttribute("class", "card h-100 rounded-0 border-dark");
+  card.setAttribute("class", "card h-100 rounded-3 border-dark border-3");
   col.appendChild(card);
   cardsContainer.appendChild(col);
   cards.push(card);
 }
 
-window.onload = function() {
-  modal.classList.add("show");
-  modal.style.display = "block";
-};
+// window.onload = function() {
+//   modal.classList.add("show");
+//   modal.style.display = "block";
+// };
 
-const submitButton = document.getElementById("submit-topics");
-submitButton.addEventListener("click", function() {
-    const topic1 = document.getElementById("topic1").value;
-    const topic2 = document.getElementById("topic2").value;
-    if (topic1.toLowerCase() === topic2.toLowerCase() || topic1 === "" || topic2 === "") {
-      alert("Please enter two different topics");
-      return;
-    }
-    topics = [topic1, topic2];
-    topics.forEach(topic => fetchArticles(topic));
-    modal.classList.remove("show");
-    modal.style.display = "none";
-});
+// const submitButton = document.getElementById("submit-topics");
+// submitButton.addEventListener("click", function() {
+//     const topic1 = document.getElementById("topic1").value;
+//     const topic2 = document.getElementById("topic2").value;
+//     if (topic1.toLowerCase() === topic2.toLowerCase() || topic1 === "" || topic2 === "") {
+//       alert("Please enter two different topics");
+//       return;
+//     }
+//     topics = [topic1, topic2];
+//     topics.forEach(topic => fetchArticles(topic));
+//     modal.classList.remove("show");
+//     modal.style.display = "none";
+// });
 
 // Fetch the articles for the current topic and store them in the "articles" array
 function fetchArticles(topic) {
@@ -63,11 +63,11 @@ function fetchArticles(topic) {
 function updateCard(article, card) {
     card.innerHTML = "";
     const sourceContainer = document.createElement("div");
-    sourceContainer.setAttribute("class", "card-header text-center");
+    sourceContainer.setAttribute("class", "card-header text-center rounded-1");
     const source = document.createElement("h5");
     source.setAttribute("class", "card-title");
     const link = document.createElement("a");
-    link.setAttribute("class", "text-dark");
+    link.setAttribute("class", "text-dark text-decoration-none");
     link.setAttribute("target", "_blank");
     link.href = article.url;
     link.textContent = article.source.name;
@@ -76,23 +76,24 @@ function updateCard(article, card) {
     card.appendChild(sourceContainer);
 
     const imageLink = document.createElement("a");
+    imageLink.setAttribute("class", "imageWrapper")
     imageLink.setAttribute("target", "_blank");
     imageLink.href = article.url;
     const image = document.createElement("img");
-    image.setAttribute("class", "card-img-top rounded-0");
+    image.setAttribute("class", "card-img-top shadow rounded-4 p-2");
     image.src = article.urlToImage;
     imageLink.appendChild(image);
     card.appendChild(imageLink);
 
     const CardBody = document.createElement("div");
-    CardBody.setAttribute("class", "card-body text-center");
+    CardBody.setAttribute("class", "card-body text-center overflow-y-scroll");
     const title = document.createElement("h5");
     title.textContent = article.title;
     CardBody.appendChild(title);
     card.appendChild(CardBody);
 
     const CardFooter = document.createElement("div");
-    CardFooter.setAttribute("class", "card-footer");
+    CardFooter.setAttribute("class", "card-footer rounded-1 overflow-y-scroll");
     const author = document.createElement("p");
     author.setAttribute("class", "card-text mb-0");
     const small1 = document.createElement("small");
@@ -153,4 +154,8 @@ prevButton.addEventListener("click", function() {
       updateCard(article, card);
     }
   }
+});
+
+topics.forEach((topic) => {
+  fetchArticles(topic);
 });
