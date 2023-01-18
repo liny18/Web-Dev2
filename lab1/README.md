@@ -1,20 +1,29 @@
-Specification :
+    Specification guide for our news ticker:
 
-    JSON configure:
+        The program fetches data from published news articles.
+        The program displays 5 articles at a time on the page.
+        The program updates the displayed articles at a fixed interval(3-5 seconds).
 
-      Title
+    Properties of news articles displayed:
 
-      Date
+        Title
+        Date
+        Author
+        Link to article
+        News publisher
+        Cover photo
 
-      Author
+    This news ticker will be implemented with the following technologies:
 
-      Link to article
+        HTML: to create the layout of the page.
+        CSS: to style the page.
+        JavaScript: to handle the interactions and logic of the program.
+        (Optional) Bootstrap 5: to help with styling of the page.
+        (Optional) Fetch: to make an HTTP request to API.
 
-      News publisher
+    Sketch:
 
-    Basic design:
-
-      https://cdn.discordapp.com/attachments/1063494969815486505/1064360410968502272/Untitled_Notebook-2.jpg
+        https://cdn.discordapp.com/attachments/1063494969815486505/1064360410968502272/Untitled_Notebook-2.jpg
 
 Resources:
 
@@ -36,4 +45,4 @@ Reflection:
 
 Design choices/creativity:
 
-  Every article on the page is dynamically generated in JavaSCript and placed into also dynamically generated cards. The displayNews function displays 5 random news articles at a time instead of in order because I thought it was more interesting. This is done through the use of generating random index using the Math library. Every cycle, the old ones are removed and replaced with 5 new news articles. fetchArticles is only called 2 times during the entire program, which means only 2 API calls. Initially I had the program just repetitively making API calls to cycle back from the start after reaching the end of the list. I soon figured out this was a terrible idea as I quickly ran into rate limiting. To avoid this, I created an array to store all the news articles that filters out the ones without a title, author, or image after the initial API calls and just loop through the array instead. I also used setTimeout to accomplish a 5 second delay between cycles. Initially I used setInterval instead but chatGPT told me setTimeout is better because clearTimeout can be called to prevent multiple calls of the function to pile up and cause performance issues. In addition, I sanitized the news object to display cleaner information. For example, I removed ".com" from the news sources and shortened the authors' list if it had more than 2 authors.
+  Instead of having pre-defined topics, I allow the user to pick two topics of their choice. Onece their topics are submitted, every article on the page is dynamically generated in JavaScript and placed into also dynamically generated cards. The displayNews function displays 5 random news articles at a time instead of in order because I thought it was more interesting. This is done through the use of generating random index using the Math library. Every cycle, the old ones are removed and replaced with 5 new news articles. fetchArticles is only called 2 times during the entire program, which means only 2 API calls. Initially I had the program just repetitively making API calls to cycle back from the start after reaching the end of the list. I soon figured out this was a terrible idea as I quickly ran into rate limiting. To avoid this, I created an array to store all the news articles that filters out the ones without a title, author, or image after the initial API calls and just loop through the array instead. I also used setTimeout to accomplish a 5 second delay between cycles. Initially I used setInterval instead but chatGPT told me setTimeout is better because clearTimeout can be called to prevent multiple calls of the function to pile up and cause performance issues. In addition, I sanitized the news object to display cleaner information. For example, I removed ".com" from the news sources and shortened the authors' list if it had more than 2 authors.
