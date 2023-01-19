@@ -42,6 +42,7 @@ Resources:
 Reflection:
 
   This lab reminded me just how bad I am at CSS. Even with Bootstrap, I still struggled to scale everything just right. I had lots of trouble trying to make all the cards on my page the same resize regardless of the text length and image size. After getting lots of help from the "gods" on StackOverflow I was able to implement this. It is certainly not perfect, as the scaling of things can still go off if the screen size is smaller, but it is good enough. It is also 100% mobile compatible thanks to Bootstrap. It also took me quite a bit to find a good API and understand it's usage. I failed to find an API that can get more than 200 news in just one API call, so I went with NewsAPI, which has a cap of 100 news per call, and made 2 separate API calls. Overall, this wasn't a hard lab, but still took me a couple of hours.
+  
   Turns out newsapi does not work outside of local host so I had to spend hours looking for an alternative. I eventually went with new york times but have to make 20 API requests for 200 articles; and the API has 10 API request per minute rate limiting so I had to make the 10 requests a time in a one minute interval. :(
 
 Design choices/creativity:
