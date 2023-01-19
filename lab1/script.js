@@ -35,27 +35,48 @@ submitButton.addEventListener("click", function() {
       return;
     }
     topics = [topic1, topic2];
-    topics.forEach(topic => fetchArticles(topic));
+    topics.forEach(topic => {
+      for (let i = 1; i <= 5; i++) {
+        fetchArticles(topic, i);
+      }
+    });
     modal.classList.remove("show");
     modal.style.display = "none";
+    setTimeout(() => {
+      topics.forEach(topic => {
+        for (let i = 1; i <= 5; i++) {
+          fetchArticles(topic, i);
+        }
+      });
+  }, 60000);
 });
 
+
 // Fetch the articles for the current topic and store them in the "articles" array
-function fetchArticles(topic) {
-  console.log("Fetching articles for topic: " + topic);
-  const key = "1c695ca439ca400fbe441d6de251b59f";
-  const articlenum = 100;
+function fetchArticles(topic, page) {
+  // use nytimes api
+  const key = "XeMT0MNnxGp62eLSwkiAfJg2gVZZMhm7";
   const language = "en";
-  const url = `https://newsapi.org/v2/everything?q=${topic}&apiKey=${key}&pageSize=${articlenum}&language=${language}`;
+  const url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${topic}&page=${page}&language=${language}&api-key=${key}`
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      articles = articles.concat(data.articles);
-      articles = articles.filter(article => article.title && article.author && article.urlToImage);
-      if (topic == topics[topics.length - 1]) {
+      for (let i = 0; i < data.response.docs.length; i++) {
+        const article = data.response.docs[i];
+        // get the source, title, author, date, url, and image url of the article
+        articles.push({
+          source: article.source,
+          title: article.headline.main,
+          author: article.byline.original,
+          date: article.pub_date,
+          url: article.web_url,
+          urlToImage: article.multimedia.length > 0 ? "https://static01.nyt.com/" + article.multimedia[0].url : "https://upload.wikimedia.org/wikipedia/commons/0/0e/Nytimes_hq.jpg",
+        });
+      }
+      if (topic === topics[1] && page === 5) {
         displayNews();
       }
-    })
+  })
     .catch(error => console.log(error));
 }
 
@@ -70,7 +91,7 @@ function updateCard(article, card) {
     link.setAttribute("class", "text-dark text-decoration-none");
     link.setAttribute("target", "_blank");
     link.href = article.url;
-    link.textContent = article.source.name;
+    link.textContent = article.source;
     source.appendChild(link);
     sourceContainer.appendChild(source);
     card.appendChild(sourceContainer);
@@ -107,8 +128,8 @@ function updateCard(article, card) {
     small2.setAttribute("class", "text-muted");
     small2.textContent = "Date: ";
     title.textContent = article.title;
-    small1.textContent += article.author ? (article.author.split(",").length >= 3 ?  article.author.split(",").slice(0, 1).concat(" et al.").join("") :  article.author) : "Unknown";
-    small2.textContent += article.publishedAt.substring(0, 10);
+    small1.textContent += article.author ? article.author.substring(3) : "Unknown";
+    small2.textContent += article.date ? article.date.substring(0, 10) : "Unknown";
     date.appendChild(small2);
     CardFooter.appendChild(date);
     card.appendChild(CardFooter);
