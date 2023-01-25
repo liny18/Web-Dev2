@@ -1,0 +1,122 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+}
+
+html {
+  position: relative;
+  min-height:100%;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.left-container {
+  position: relative;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-left: 3px solid rgb(0, 0, 0);
+}
+
+.right-container {
+  background-image: url(pictures/monkey.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  border-right: 3px solid rgb(0, 0, 0);
+}
+
+.card {
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+.main-card-left {
+  border-right: 3px solid rgba(173, 173, 173, 1);
+}
+
+.main-card-left img {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  object-fit:fill;
+}
+
+.main-temp {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.main-card-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details {
+  font-size: 1rem;
+  color:rgb(134, 134, 134);
+  /* line-height: 0.7; */
+}
+
+.city {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-shadow:
+    0.05em 0 black,
+    0 0.05em black,
+    -0.05em 0 black,
+    0 -0.05em black,
+    -0.05em -0.05em black,
+    -0.05em 0.05em black,
+    0.05em -0.05em black,
+    0.05em 0.05em black;
+}
+
+.whole {
+  position: relative;
+}
+
+.name {
+  position: absolute;
+  top: 70px;
+  left: 70px;
+  color: white;
+  font-size: 1.2rem;
+  text-shadow:
+    0.07em 0 black,
+    0 0.07em black,
+    -0.07em 0 black,
+    0 -0.07em black;
+  font-weight: bold;
+}
+
+.search-card,
+.form-control {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.main-card {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.line {
+  border-left: 3px solid rgb(0, 0, 0);
+  height: 100%;
+  width: 1px;
+}
+
+.box {
+  border: 3px solid rgb(0, 0, 0);
+}
