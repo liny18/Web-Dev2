@@ -23,7 +23,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-left: 3px solid rgb(0, 0, 0);
+  border-left: 3px solid rgba(255, 255, 255, 0.9);
 }
 
 .right-container {
@@ -32,7 +32,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   height: 100%;
-  border-right: 3px solid rgb(0, 0, 0);
 }
 
 .card {
@@ -111,12 +110,6 @@ body {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-.line {
-  border-left: 3px solid rgb(0, 0, 0);
-  height: 100%;
-  width: 1px;
-}
-
 .box {
-  border: 3px solid rgb(0, 0, 0);
+  border: 3px solid rgba(255, 255, 255, 0.9);
 }
