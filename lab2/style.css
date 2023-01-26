@@ -23,7 +23,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-left: 3px solid rgba(255, 255, 255, 0.9);
+  border-left: 3px solid #f3b6d5;
 }
 
 .right-container {
@@ -111,5 +111,5 @@ body {
 }
 
 .box {
-  border: 3px solid rgba(255, 255, 255, 0.9);
+  border: 3px solid rgb(139, 205, 243);
 }
