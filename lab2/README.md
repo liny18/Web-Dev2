@@ -40,6 +40,6 @@ youtube.com/watch?v=Jyvffr3aCp0
 
 https://www.w3schools.com/HOWTO/howto_js_trigger_button_enter.asp
 
-Comments:
+Reflection:
 
-Before completing this lab, I'd always heard about APIs but never had a clear understanding of what they actually are and how they actually function. This lab is the first time I have had to fetch data from APIs, which gives me really good practice, and now I have a clear understanding of the fundamentals of APIs. This is also the first time I used Bootstrap, which wasn't necessarily hard to learn, but took a while to get used to since I've always just done vanilla HTML, CSS, and JS. I'm still unsure of when to use Bootstrap's built-in classes and when to write my own CSS, or how to balance both. This will take a lot more research and practice, but I'm very happy that I picked up Bootstrap because it makes a lot of things much easier. For my API choice, besides the OpenWeather API that we are required to use, I used Pixabay, which allowed me to generate a background image based on the weather given by the OpenWeather API. I also used the HTML5 Geolocation API for the extra credit. Once you learn how to use one API, all the other ones are just a little extra work. Although I have to say that some APIs have terrible documentation, such as Unsplash, which is an API similar to Pixabay. I searched through the documentation for 20 minutes and couldn't figure out how to get it to work, so I switched to Pixabay. Regardless, APIs are fun to play around with.
+I used lab 4 of WebSys as a starting point for my weather app because they were pretty similar. I spruced up the design a bit and made sure the APIs were working right. I also made sure to test it on different devices to ensure it looked good and worked smoothly on all of them.
