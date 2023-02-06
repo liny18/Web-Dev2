@@ -6,8 +6,8 @@ function App() {
 
   useEffect(() => {
     fetch("http://localhost:3000/api")
-      .then((res) => res.json())
-      .then((data) => {
+    .then((res) => res.json())
+    .then((data) => {
         setData(data);
       });
   }, []);
