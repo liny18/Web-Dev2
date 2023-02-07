@@ -1,4 +1,14 @@
-export const Navbar = () => {
+interface NavbarProps {
+  population: string;
+  timezones: string[];
+  continent: string;
+  currency: string;
+  map: string;
+  capital: string;
+  languages: string[];
+}
+
+export const Navbar = ( { population, timezones, continent, currency, map, capital, languages }: NavbarProps ) => {
   return (
     <div>
       <ul className="flex flex-row justify-between mt-5 font-medium">
