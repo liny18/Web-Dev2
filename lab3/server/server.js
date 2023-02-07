@@ -6,8 +6,8 @@ const port = process.env.PORT || 3001;
 
 app.use(express.json());
 
-app.get("/api/images/:query", (req, res) => {
-  const query = req.params.query;
+app.get("/api/v1/images", (req, res) => {
+  const query = req.query.country;
   const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}`;
 
   fetch(unsplashUrl, {
@@ -20,8 +20,14 @@ app.get("/api/images/:query", (req, res) => {
     .catch((error) => console.error(error));
 });
 
-app.get("/api/v1", (req, res) => {
-  res.json({ users: ["user1", "user2", "user3", "user4"] });
+app.get("/api/v1/countries", (req, res) => {
+  const query = req.query.country;
+  const Url = `https://restcountries.com/v3.1/name/${query}?fullText=true`;
+
+  fetch(Url)
+    .then((response) => response.json())
+    .then((data) => res.json(data))
+    .catch((error) => console.error(error));
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
