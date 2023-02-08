@@ -1,9 +1,15 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext, createContext } from "react"
 import { Header } from "./components/Header";
 import { Navbar } from "./components/Navbar";
 import { Card } from "./components/Card";
 import { Info } from "./components/Info";
+
+export const UserContext = createContext<{
+  setCountry: React.Dispatch<React.SetStateAction<string>>;
+}>({
+  setCountry: () => {},
+});
 
 function App() {
   const [imageUrl, setImageUrl] = useState<string>(
@@ -27,17 +33,17 @@ function App() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  // useEffect(() => {
-  //   const fetchImage = async (query: string) => {
-  //     const response = await fetch(`/api/v1/images?country=${query}`);
-  //     const data = await response.json();
-  //     setImageUrl(data.results[
-  //       randInt(0, data.results.length - 1)
-  //     ].urls.full);
-  //   };
+  useEffect(() => {
+    const fetchImage = async (query: string) => {
+      const response = await fetch(`/api/v1/images?country=${query}`);
+      const data = await response.json();
+      setImageUrl(data.results[
+        randInt(0, data.results.length - 1)
+      ].urls.full);
+    };
 
-  //   fetchImage(country);
-  // }, []);
+    fetchImage(country);
+  }, [country]);
 
   useEffect(() => {
     const fetchCountry = async (query: string) => {
@@ -48,32 +54,34 @@ function App() {
     };
 
     fetchCountry(country);
-  }, []);
+  }, [country]);
 
   return (
-    <div
-      className="App rounded-3xl px-20 overflow-hidden relative"
-      style={{
-        backgroundImage: `url(${imageUrl})`,
-        height: "93vh",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-      }}
-    >
-      <Header country={country} />
-      <Navbar
-        population={population}
-        timezones={timezones}
-        continent={continent}
-        currency={currency}
-        map={map}
-        capital={capital}
-        languages={languages}
-      />
-      <Card coordinates={coordinates} common={country} official={official} />
-      <Info />
-    </div>
+    <UserContext.Provider value={{ setCountry }}>
+      <div
+        className="App rounded-3xl px-20 overflow-hidden relative"
+        style={{
+          backgroundImage: `url(${imageUrl})`,
+          height: "93vh",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+        }}
+      >
+        <Header country={country} />
+        <Navbar
+          population={population}
+          timezones={timezones}
+          continent={continent}
+          currency={currency}
+          map={map}
+          capital={capital}
+          languages={languages}
+        />
+        <Card coordinates={coordinates} common={country} official={official} />
+        <Info />
+      </div>
+    </UserContext.Provider>
   );
 }
 
