@@ -58,8 +58,8 @@ function App() {
   const [official, setOfficial] = useState<string>(
     "People's Republic of China"
   );
-  const [choice, setChoice] = useState<string>("Population");
-  const [output, setOutput] = useState<string>("1,439,323,776");
+  const [choice, setChoice] = useState<string>("Capital");
+  const [output, setOutput] = useState<string>("Beijing");
   const [population, setPopulation] = useState<string>("1,439,323,776");
   const [continent, setContinent] = useState<string>("Asia");
   const [timezones, setTimezone] = useState<string>("UTC+08:00");
@@ -168,10 +168,10 @@ function App() {
           backgroundPosition: "center",
         }}
       >
-        <Header country={country} />
+        <Header />
         <Navbar />
-        <Card coordinates={coordinates} common={country} official={official} />
         <Info />
+        <Card coordinates={coordinates} common={country} official={official} />
       </div>
     </UserContext.Provider>
   );

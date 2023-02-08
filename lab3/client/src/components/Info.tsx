@@ -10,7 +10,7 @@ interface InfoProps {
 export const Info = () => {
   const context = useContext(UserContext);
   return (
-    <div className="flex flex-col gap-2 bg-white bg-opacity-20 border-l-teal-100 border-l-4 p-5 fixed top-[68%] shadow-md">
+    <div className="flex flex-col gap-2 bg-white bg-opacity-20 border-l-teal-100 border-l-4 p-5 fixed top-[40%] shadow-md">
       <p className="font-medium text-2xl text-white">{context.choice}</p>
       {context.choice === "Map" ? (
         <a className="flex flex-row items-center gap-2 font-bold text-white overflow-y-scroll max-w-5xl max-h-24" href={context.map} target="_blank" rel="noreferrer">
