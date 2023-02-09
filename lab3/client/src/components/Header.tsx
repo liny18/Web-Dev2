@@ -1,6 +1,5 @@
-import { DropdownMenu } from "./Dropdown";
+import { DropdownMenu } from "./Dropdown/Dropdown";
 import { Searchbar } from "./Searchbar";
-
 
 export const Header = () => {
   return (

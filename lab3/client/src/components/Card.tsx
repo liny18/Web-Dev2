@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from '../App'
+import { UserContext } from "../App";
 
 export const Card = () => {
   const context = useContext(UserContext);

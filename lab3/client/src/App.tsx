@@ -1,12 +1,12 @@
 import "./App.css";
-import React, { useEffect, useState, useContext, createContext } from "react"
+import React, { useEffect, useState, useContext, createContext } from "react";
 import { Header } from "./components/Header";
 import { Navbar } from "./components/Navbar";
 import { Card } from "./components/Card";
 import { Info } from "./components/Info";
 
 export const UserContext = createContext<{
-  allTranslations: {[key: string]: {common: string, official: string}}[];
+  allTranslations: { [key: string]: { common: string; official: string } }[];
   selectedTranslation: string;
   allCountries: string[];
   coordinates: string;
@@ -79,7 +79,9 @@ function App() {
   const [official, setOfficial] = useState<string>(
     "People's Republic of China"
   );
-  const [allTranslations, setAllTranslations] = useState<{[key: string]: {common: string, official: string}}[]>([]);
+  const [allTranslations, setAllTranslations] = useState<
+    { [key: string]: { common: string; official: string } }[]
+  >([]);
   const [selectedTranslation, setSelectedTranslation] = useState<string>("ENG");
   const [allCountries, setAllCountries] = useState<string[]>([]);
   const [choice, setChoice] = useState<string>("Capital");
@@ -115,7 +117,7 @@ function App() {
     name: string;
     symbol: string;
   }
-  
+
   interface Currencies {
     [currencyCode: string]: Currency;
   }
@@ -125,7 +127,6 @@ function App() {
     const currency = currencies[currencyCode];
     return currency.symbol + " " + currency.name;
   };
-  
 
   const splitPopulation = (population: string) => {
     const split = population.split("");
@@ -138,8 +139,25 @@ function App() {
     }
     return result.reverse().join("");
   };
+  
+  const getAllCountries = (countries: Record<string, any>) => {
+    const all = Object.keys(countries);
+    let result: string[] = [];
+    all.forEach((country) => {
+      result.push(countries[country].name.common);
+    });
+    return result;
+  };
 
-
+  const getAllTranslations = (translations: Record<string, any>) => {
+    const all = Object.keys(translations);
+    let result: { [key: string]: { common: string; official: string } }[] = [];
+    all.forEach((translation) => {
+      result.push({ [translation]: translations[translation] });
+    });
+    return result;
+  };
+  
   // useEffect(() => {
   //   try {
   //     const fetchImage = async (query: string) => {
@@ -155,23 +173,6 @@ function App() {
   //   }
   // }, [country]);
 
-  const getAllCountries = (countries: Record<string, any>) => {
-    const all = Object.keys(countries);
-    let result: string[] = [];
-    all.forEach((country) => {
-      result.push(countries[country].name.common);
-    })
-    return result;
-  };
-  
-  const getAllTranslations = (translations: Record<string, any>) => {
-    const all = Object.keys(translations);
-    let result: {[key: string]: {common: string, official: string}}[] = [];
-    all.forEach((translation) => {
-        result.push({[translation]: translations[translation]});
-    });
-    return result;
-};
 
   useEffect(() => {
     try {
@@ -185,7 +186,7 @@ function App() {
       console.log(error);
     }
   }, []);
-        
+
   useEffect(() => {
     try {
       const fetchCountry = async (query: string) => {
@@ -210,9 +211,41 @@ function App() {
     }
   }, [country]);
 
-
   return (
-    <UserContext.Provider value={{ allCountries, country, choice, output, population, timezones, continent, currency, capital, languages, map, setOutput, setCountry, setChoice, setPopulation, setContinent, setTimezone, setLanguages, setCurrency, setMap, setCapital, selectedTranslation, setSelectedTranslation, allTranslations, official, coordinates, common, setOfficial, setCoordinates, setCommon }}>
+    <UserContext.Provider
+      value={{
+        allCountries,
+        country,
+        choice,
+        output,
+        population,
+        timezones,
+        continent,
+        currency,
+        capital,
+        languages,
+        map,
+        setOutput,
+        setCountry,
+        setChoice,
+        setPopulation,
+        setContinent,
+        setTimezone,
+        setLanguages,
+        setCurrency,
+        setMap,
+        setCapital,
+        selectedTranslation,
+        setSelectedTranslation,
+        allTranslations,
+        official,
+        coordinates,
+        common,
+        setOfficial,
+        setCoordinates,
+        setCommon,
+      }}
+    >
       <div
         className="App rounded-3xl px-20 overflow-hidden relative"
         style={{
