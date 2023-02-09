@@ -20,6 +20,16 @@ app.get("/api/v1/images", (req, res) => {
     .catch((error) => console.error(error));
 });
 
+app.get("/api/v1/all", (req, res) => {
+  const Url = "https://restcountries.com/v3.1/all";
+
+  fetch(Url)
+    .then((response) => response.json())
+    .then((data) => res.json(data))
+    .catch((error) => console.error(error));
+});
+
+
 app.get("/api/v1/countries", (req, res) => {
   const query = req.query.country;
   const Url = `https://restcountries.com/v3.1/name/${query}?fullText=true`;

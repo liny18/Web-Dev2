@@ -6,6 +6,7 @@ import { Card } from "./components/Card";
 import { Info } from "./components/Info";
 
 export const UserContext = createContext<{
+  allCountries: string[];
   country: string;
   choice: string;
   output: string;
@@ -27,6 +28,7 @@ export const UserContext = createContext<{
   setMap: React.Dispatch<React.SetStateAction<string>>;
   setCapital: React.Dispatch<React.SetStateAction<string>>;
 }>({
+  allCountries: [],
   country: "",
   choice: "",
   output: "",
@@ -58,6 +60,7 @@ function App() {
   const [official, setOfficial] = useState<string>(
     "People's Republic of China"
   );
+  const [allCountries, setAllCountries] = useState<string[]>([]);
   const [choice, setChoice] = useState<string>("Capital");
   const [output, setOutput] = useState<string>("Beijing");
   const [population, setPopulation] = useState<string>("1,439,323,776");
@@ -134,6 +137,28 @@ function App() {
   //   }
   // }, [country]);
 
+  const getAllCountries = (countries: Record<string, any>) => {
+    const all = Object.keys(countries);
+    let result: string[] = [];
+    all.forEach((country) => {
+      result.push(countries[country].name.common);
+    })
+    return result;
+  };
+
+  useEffect(() => {
+    try {
+      const fetchAll = async () => {
+        const response = await fetch("/api/v1/all");
+        const data = await response.json();
+        setAllCountries(getAllCountries(data));
+      };
+      fetchAll();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+        
   useEffect(() => {
     try {
       const fetchCountry = async (query: string) => {
@@ -157,7 +182,7 @@ function App() {
 
 
   return (
-    <UserContext.Provider value={{ country, choice, output, population, timezones, continent, currency, capital, languages, map, setOutput, setCountry, setChoice, setPopulation, setContinent, setTimezone, setLanguages, setCurrency, setMap, setCapital }}>
+    <UserContext.Provider value={{ allCountries, country, choice, output, population, timezones, continent, currency, capital, languages, map, setOutput, setCountry, setChoice, setPopulation, setContinent, setTimezone, setLanguages, setCurrency, setMap, setCapital }}>
       <div
         className="App rounded-3xl px-20 overflow-hidden relative"
         style={{

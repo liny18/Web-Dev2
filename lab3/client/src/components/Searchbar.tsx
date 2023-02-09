@@ -8,8 +8,12 @@ export const Searchbar = () => {
   const [inputValue, setInputValue] = useState("");
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    context.setCountry(toCapitalCase(inputValue));
-    setInputValue("");
+    if (context.allCountries.includes(toCapitalCase(inputValue))) {
+      context.setCountry(toCapitalCase(inputValue));
+      setInputValue("");
+    } else {
+      alert("Enter a valid country name.");
+    }
   }; 
 
   const toCapitalCase = (str: string) => {
