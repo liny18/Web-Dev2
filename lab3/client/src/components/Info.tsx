@@ -2,11 +2,6 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../App";
 import { SiOpenstreetmap } from "react-icons/si";
 
-interface InfoProps {
-  choice: string;
-  output: string;
-}
-
 export const Info = () => {
   const context = useContext(UserContext);
   return (

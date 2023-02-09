@@ -36,7 +36,7 @@ export const Navbar = () => {
 
   return (
     <div>
-      <ul className="flex flex-row justify-between mt-5 font-medium">
+      <ul className="flex flex-row justify-between mt-5 font-semibold">
         <li>
           <button value="Capital" onClick={handleClick}>
             Capital

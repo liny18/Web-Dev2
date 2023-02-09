@@ -10,6 +10,7 @@ export const Searchbar = () => {
     event.preventDefault();
     if (context.allCountries.includes(toCapitalCase(inputValue))) {
       context.setCountry(toCapitalCase(inputValue));
+      context.setSelectedTranslation("ENG");
       setInputValue("");
     } else {
       alert("Enter a valid country name.");

@@ -6,7 +6,12 @@ import { Card } from "./components/Card";
 import { Info } from "./components/Info";
 
 export const UserContext = createContext<{
+  allTranslations: {[key: string]: {common: string, official: string}}[];
+  selectedTranslation: string;
   allCountries: string[];
+  coordinates: string;
+  official: string;
+  common: string;
   country: string;
   choice: string;
   output: string;
@@ -17,6 +22,10 @@ export const UserContext = createContext<{
   capital: string;
   languages: string;
   map: string;
+  setCommon: React.Dispatch<React.SetStateAction<string>>;
+  setOfficial: React.Dispatch<React.SetStateAction<string>>;
+  setCoordinates: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedTranslation: React.Dispatch<React.SetStateAction<string>>;
   setOutput: React.Dispatch<React.SetStateAction<string>>;
   setCountry: React.Dispatch<React.SetStateAction<string>>;
   setChoice: React.Dispatch<React.SetStateAction<string>>;
@@ -28,7 +37,12 @@ export const UserContext = createContext<{
   setMap: React.Dispatch<React.SetStateAction<string>>;
   setCapital: React.Dispatch<React.SetStateAction<string>>;
 }>({
+  coordinates: "",
+  official: "",
+  common: "",
+  allTranslations: [],
   allCountries: [],
+  selectedTranslation: "",
   country: "",
   choice: "",
   output: "",
@@ -39,6 +53,10 @@ export const UserContext = createContext<{
   capital: "",
   languages: "",
   map: "",
+  setCommon: () => {},
+  setOfficial: () => {},
+  setCoordinates: () => {},
+  setSelectedTranslation: () => {},
   setOutput: () => {},
   setCountry: () => {},
   setChoice: () => {},
@@ -57,9 +75,12 @@ function App() {
   );
   const [country, setCountry] = useState<string>("China");
   const [coordinates, setCoordinates] = useState<string>("35° N, 105° E");
+  const [common, setCommon] = useState<string>("China");
   const [official, setOfficial] = useState<string>(
     "People's Republic of China"
   );
+  const [allTranslations, setAllTranslations] = useState<{[key: string]: {common: string, official: string}}[]>([]);
+  const [selectedTranslation, setSelectedTranslation] = useState<string>("ENG");
   const [allCountries, setAllCountries] = useState<string[]>([]);
   const [choice, setChoice] = useState<string>("Capital");
   const [output, setOutput] = useState<string>("Beijing");
@@ -72,9 +93,6 @@ function App() {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Map_of_China_with_location_marker.svg/1200px-Map_of_China_with_location_marker.svg.png"
   );
   const [capital, setCapital] = useState<string>("Beijing");
-  const randInt = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
 
   const getAllTimezones = (list: string[]) => {
     let result = "";
@@ -145,6 +163,15 @@ function App() {
     })
     return result;
   };
+  
+  const getAllTranslations = (translations: Record<string, any>) => {
+    const all = Object.keys(translations);
+    let result: {[key: string]: {common: string, official: string}}[] = [];
+    all.forEach((translation) => {
+        result.push({[translation]: translations[translation]});
+    });
+    return result;
+};
 
   useEffect(() => {
     try {
@@ -164,8 +191,11 @@ function App() {
       const fetchCountry = async (query: string) => {
         const response = await fetch(`/api/v1/countries?country=${query}`);
         const data = await response.json();
+        setAllTranslations(getAllTranslations(data[0].translations));
+        setSelectedTranslation("ENG");
         setCoordinates(data[0].latlng.join("° N, ") + "° E");
         setOfficial(data[0].name.official);
+        setCommon(data[0].name.common);
         setPopulation(splitPopulation(data[0].population.toString()));
         setContinent(data[0].continents[0]);
         setTimezone(getAllTimezones(data[0].timezones));
@@ -182,7 +212,7 @@ function App() {
 
 
   return (
-    <UserContext.Provider value={{ allCountries, country, choice, output, population, timezones, continent, currency, capital, languages, map, setOutput, setCountry, setChoice, setPopulation, setContinent, setTimezone, setLanguages, setCurrency, setMap, setCapital }}>
+    <UserContext.Provider value={{ allCountries, country, choice, output, population, timezones, continent, currency, capital, languages, map, setOutput, setCountry, setChoice, setPopulation, setContinent, setTimezone, setLanguages, setCurrency, setMap, setCapital, selectedTranslation, setSelectedTranslation, allTranslations, official, coordinates, common, setOfficial, setCoordinates, setCommon }}>
       <div
         className="App rounded-3xl px-20 overflow-hidden relative"
         style={{
@@ -196,7 +226,7 @@ function App() {
         <Header />
         <Navbar />
         <Info />
-        <Card coordinates={coordinates} common={country} official={official} />
+        <Card />
       </div>
     </UserContext.Provider>
   );
