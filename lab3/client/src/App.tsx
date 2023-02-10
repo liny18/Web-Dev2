@@ -95,6 +95,9 @@ function App() {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Map_of_China_with_location_marker.svg/1200px-Map_of_China_with_location_marker.svg.png"
   );
   const [capital, setCapital] = useState<string>("Beijing");
+  const randInt = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
 
   const getAllTimezones = (list: string[]) => {
     let result = "";
