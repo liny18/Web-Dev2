@@ -3,10 +3,11 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
+const router = express.Router();
 
 app.use(express.json());
 
-app.get("/api/v1/images", (req, res) => {
+router.get("/images", (req, res) => {
   const query = req.query.country;
   const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}`;
 
@@ -20,24 +21,47 @@ app.get("/api/v1/images", (req, res) => {
     .catch((error) => console.error(error));
 });
 
-app.get("/api/v1/all", (req, res) => {
+router.get("/all", (req, res) => {
   const Url = "https://restcountries.com/v3.1/all";
 
   fetch(Url)
     .then((response) => response.json())
-    .then((data) => res.json(data))
-    .catch((error) => console.error(error));
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while fetching data." });
+    });
 });
 
-
-app.get("/api/v1/countries", (req, res) => {
+router.get("/countries", (req, res) => {
   const query = req.query.country;
   const Url = `https://restcountries.com/v3.1/name/${query}?fullText=true`;
 
   fetch(Url)
     .then((response) => response.json())
-    .then((data) => res.json(data))
-    .catch((error) => console.error(error));
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while fetching data." });
+    });
 });
+
+router.put("/", (req, res) => {
+  res.status(501).send("Not implemented");
+});
+
+router.post("/", (req, res) => {
+  res.status(501).send("Not implemented");
+});
+
+router.delete("/", (req, res) => {
+  res.status(501).send("Not implemented");
+});
+
+app.use("/api/v1", router);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
