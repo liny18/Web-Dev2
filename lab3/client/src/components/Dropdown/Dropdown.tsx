@@ -33,6 +33,7 @@ export const DropdownMenu = () => {
 
   const handleChange = (e: any, { value }: any) => {
     context.setSelectedTranslation(value);
+    window.history.pushState(null, "", `/country?=${context.country}&language?=${value}`);
   };
 
   const friendOptions = translations.map((translation) => {
