@@ -9,9 +9,13 @@ app.use(express.json());
 
 router.get("/images", (req, res) => {
   const query = req.query.country;
-  const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}&client_id=AnMko8kHpKZElo1kkaM5hfmuVx2oFMH4ZX04sFd4Dzg`;
+  const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}`;
 
-  fetch(unsplashUrl)
+  fetch(unsplashUrl, {
+    headers: {
+      Authorization: `Client-ID AnMko8kHpKZElo1kkaM5hfmuVx2oFMH4ZX04sFd4Dzg`,
+    },
+  })
     .then((response) => response.json())
     .then((data) => {
       res.status(200).json(data);
