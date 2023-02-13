@@ -9,16 +9,18 @@ app.use(express.json());
 
 router.get("/images", (req, res) => {
   const query = req.query.country;
-  const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}`;
+  const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}&client_id=${process.env.UNSPLASH_ACCESS_KEY}}`;
 
-  fetch(unsplashUrl, {
-    headers: {
-      Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
-    },
-  })
+  fetch(unsplashUrl)
     .then((response) => response.json())
-    .then((data) => res.json(data))
-    .catch((error) => console.error(error));
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while fetching data." });
+    }
+  );
 });
 
 router.get("/all", (req, res) => {
