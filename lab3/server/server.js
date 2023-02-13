@@ -68,6 +68,6 @@ router.delete("/", (req, res) => {
   res.status(501).send("Not implemented");
 });
 
-app.use("/api/v1", router);
+app.use("https://liny18.eastus.cloudapp.azure.com/node/api/v1", router);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
