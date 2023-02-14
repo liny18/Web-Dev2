@@ -207,8 +207,6 @@ function App() {
         setCurrency(pickFirstCurrency(data[0].currencies));
         setMap(data[0].maps.googleMaps);
         setCapital(data[0].capital[0]);
-  
-        window.history.pushState(null, '', `/country?=${query}&language?=eng`);
       };
       fetchCountry(country);
     } catch (error) {
