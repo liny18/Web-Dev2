@@ -9,6 +9,7 @@ export const Searchbar = () => {
     event.preventDefault();
     if (context.allCountries.includes(toCapitalCase(inputValue))) {
       context.setCountry(toCapitalCase(inputValue));
+      context.setChoice("Capital");
       context.setSelectedTranslation("ENG");
       setInputValue("");
     } else {
