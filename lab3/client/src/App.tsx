@@ -96,7 +96,7 @@ function App() {
   );
   const [capital, setCapital] = useState<string>("Beijing");
   const randInt = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min + 1) + min);
   };
 
   const getAllTimezones = (list: string[]) => {
