@@ -1,69 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="./pig1.jpg" type="image/x-icon">
-  <title>Library</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-      background: #f1f1f1;
-    }
-    header {
-      background: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-      font-size: 20px;
-    }
-    main {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
-    }
-    a {
-      text-decoration: none;
-    }
-    button {
-      background: #333;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 20px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #555;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    Labs
-  </header>
-  <main>
-    <a href="./lab1">
-      <button>
-        Lab 1
-      </button>
-    </a>
-    <a href="./lab2">
-      <button>
-        Lab 2 
-      </button>
-    </a>
-    <a href="./lab3/client/dist/">
-      <button>
-        Lab 3
-      </button>
-    </a>
-  </main>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./pics/pig1.jpg" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Library</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Space Grotesk", sans-serif;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("./pics/monkey.jpg") no-repeat center center fixed;
+        background-size: cover;
+        z-index: -1;
+        opacity: 0.8;
+      }
+      header {
+        background: #333;
+        color: #fff;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+      }
+      a {
+        text-decoration: none;
+      }
+      button {
+        background: #333;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #555;
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        background: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-size: 15px;
+      }
+      footer a,
+      header a {
+        font-size: 17px;
+        background-color: #fff;
+        color: #333;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+      }
+
+      footer a {
+        margin-left: 5px;
+      }
+
+      header a {
+        margin-right: 5px;
+      }
+      footer a:hover,
+      header a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script defer>
+      document.addEventListener("DOMContentLoaded", function () {
+        const main = document.querySelector("main");
+        const labs = new Map([
+          ["Lab 1", "./lab1"],
+          ["Lab 2", "./lab2"],
+          ["Lab 3", "./lab3/client/dist/"],
+        ]);
+
+        labs.forEach(function (value, key) {
+          const a = document.createElement("a");
+          const b = document.createElement("button");
+          b.textContent = key;
+          a.appendChild(b);
+          a.href = value;
+          main.appendChild(a);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <a href="https://github.com/liny18"> Terry's </a>
+      WebSci Library
+    </header>
+    <main></main>
+    <footer>
+      Copyright &copy; 2023 by
+      <a
+        href="
+    https://www.linkedin.com/in/terry-lin-rpi/"
+        >Terry Lin</a
+      >
+    </footer>
+  </body>
 </html>
