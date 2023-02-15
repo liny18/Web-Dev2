@@ -49,12 +49,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
         height: 100vh;
       }
-      a {
-        text-decoration: none;
+
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        max-width: fit-content;
       }
+
       button {
         background: #333;
         color: #fff;
@@ -63,6 +67,7 @@
         margin: 10px;
         font-size: 20px;
         cursor: pointer;
+        width: 100%;
       }
       button:hover {
         background: #555;
@@ -101,35 +106,23 @@
     </style>
     <script defer>
       document.addEventListener("DOMContentLoaded", function () {
-              const main = document.querySelector("main");
-              const labs = new Map([
-                ["Calc", "./calculator/dist/"],
-                ["Lab 1", "./lab1"],
-                ["Lab 2", "./lab2"],
-                ["Lab 3", "./lab3/client/dist/"],
-              ]);
+        const main = document.querySelector(".button-container");
+        const labs = new Map([
+          ["Calc", "./calculator/dist/"],
+          ["Lab 1", "./lab1"],
+          ["Lab 2", "./lab2"],
+          ["Lab 3", "./lab3/client/dist/"],
+        ]);
 
-              let maxWidth = 0;
-
-              labs.forEach(function (value, key) {
-                const a = document.createElement("a");
-                const b = document.createElement("button");
-                b.textContent = key;
-                a.appendChild(b);
-                a.href = value;
-                main.appendChild(a);
-
-                const buttonWidth = b.clientWidth;
-                if (buttonWidth > maxWidth) {
-                  maxWidth = buttonWidth;
-                }
-              });
-
-              const buttons = document.querySelectorAll("button");
-              buttons.forEach(function (button) {
-                button.style.width = `${maxWidth}px`;
-              });
-            });
+        labs.forEach(function (value, key) {
+          const a = document.createElement("a");
+          const b = document.createElement("button");
+          b.textContent = key;
+          a.appendChild(b);
+          a.href = value;
+          main.appendChild(a);
+        });
+      });
     </script>
   </head>
   <body>
@@ -137,7 +130,9 @@
       <a href="https://github.com/liny18"> Terry's </a>
       WebSci Library
     </header>
-    <main></main>
+    <main>
+      <div class="button-container"></div>
+    </main>
     <footer>
       Copyright &copy; 2023 by
       <a
