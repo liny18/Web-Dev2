@@ -101,23 +101,35 @@
     </style>
     <script defer>
       document.addEventListener("DOMContentLoaded", function () {
-        const main = document.querySelector("main");
-        const labs = new Map([
-          ["Calculator", "./calculator/dist/"],
-          ["Lab 1", "./lab1"],
-          ["Lab 2", "./lab2"],
-          ["Lab 3", "./lab3/client/dist/"],
-        ]);
+              const main = document.querySelector("main");
+              const labs = new Map([
+                ["Calc", "./calculator/dist/"],
+                ["Lab 1", "./lab1"],
+                ["Lab 2", "./lab2"],
+                ["Lab 3", "./lab3/client/dist/"],
+              ]);
 
-        labs.forEach(function (value, key) {
-          const a = document.createElement("a");
-          const b = document.createElement("button");
-          b.textContent = key;
-          a.appendChild(b);
-          a.href = value;
-          main.appendChild(a);
-        });
-      });
+              let maxWidth = 0;
+
+              labs.forEach(function (value, key) {
+                const a = document.createElement("a");
+                const b = document.createElement("button");
+                b.textContent = key;
+                a.appendChild(b);
+                a.href = value;
+                main.appendChild(a);
+
+                const buttonWidth = b.clientWidth;
+                if (buttonWidth > maxWidth) {
+                  maxWidth = buttonWidth;
+                }
+              });
+
+              const buttons = document.querySelectorAll("button");
+              buttons.forEach(function (button) {
+                button.style.width = `${maxWidth}px`;
+              });
+            });
     </script>
   </head>
   <body>
