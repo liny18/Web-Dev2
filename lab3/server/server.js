@@ -8,7 +8,11 @@ const path = require("path");
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.get("/api/v1/images", (req, res) => {
+app.get("*", async (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
+
+app.get("/api/v1/images", async (req, res) => {
   const query = req.query.country;
   const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}`;
 
@@ -28,7 +32,7 @@ app.get("/api/v1/images", (req, res) => {
   );
 });
 
-app.get("/api/v1/all", (req, res) => {
+app.get("/api/v1/all", async (req, res) => {
   const Url = "https://restcountries.com/v3.1/all";
 
   fetch(Url)
@@ -42,7 +46,7 @@ app.get("/api/v1/all", (req, res) => {
     });
 });
 
-app.get("/api/v1/countries", (req, res) => {
+app.get("/api/v1/countries", async (req, res) => {
   const query = req.query.country;
   const Url = `https://restcountries.com/v3.1/name/${query}?fullText=true`;
 
@@ -57,7 +61,7 @@ app.get("/api/v1/countries", (req, res) => {
     });
 });
 
-app.put("/api/v1", (req, res) => {
+app.put("/api/v1", async (req, res) => {
   try {
   res.status(200).send("Put request received");
   } catch (error) {
@@ -66,7 +70,7 @@ app.put("/api/v1", (req, res) => {
   }
 });
 
-app.post("/api/v1", (req, res) => {
+app.post("/api/v1", async (req, res) => {
   try {
     res.status(200).send("Post request received");
   }
@@ -76,7 +80,7 @@ app.post("/api/v1", (req, res) => {
   }
 });
 
-app.delete("/api/v1", (req, res) => {
+app.delete("/api/v1", async (req, res) => {
   try {
     res.status(200).send("Delete request received");
   }
@@ -84,10 +88,6 @@ app.delete("/api/v1", (req, res) => {
     console.error(error);
     res.status(500).json({ error: "An error occurred while fetching data." });
   }
-});
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
