@@ -7,7 +7,7 @@ const path = require("path");
 
 app.use(express.json());
 
-app.use(express.static('../client/dist'));
+app.use("/ITWS4500-S23-liny18", express.static(path.join(__dirname, "../client", "dist")));
 
 // app.get("/", (req, res) => {
 //   res.sendFile("index.html", { root: path.join(__dirname, "../client", "dist") });
