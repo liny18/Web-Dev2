@@ -3,13 +3,12 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
-const router = express.Router();
 const path = require("path");
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-router.get("/images", (req, res) => {
+app.get("/api/v1/images", (req, res) => {
   const query = req.query.country;
   const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}`;
 
@@ -29,7 +28,7 @@ router.get("/images", (req, res) => {
   );
 });
 
-router.get("/all", (req, res) => {
+app.get("/api/v1/all", (req, res) => {
   const Url = "https://restcountries.com/v3.1/all";
 
   fetch(Url)
@@ -43,7 +42,7 @@ router.get("/all", (req, res) => {
     });
 });
 
-router.get("/countries", (req, res) => {
+app.get("/api/v1/countries", (req, res) => {
   const query = req.query.country;
   const Url = `https://restcountries.com/v3.1/name/${query}?fullText=true`;
 
@@ -58,7 +57,7 @@ router.get("/countries", (req, res) => {
     });
 });
 
-router.put("/", (req, res) => {
+app.put("/api/v1", (req, res) => {
   try {
   res.status(200).send("Put request received");
   } catch (error) {
@@ -67,7 +66,7 @@ router.put("/", (req, res) => {
   }
 });
 
-router.post("/", (req, res) => {
+app.post("/api/v1", (req, res) => {
   try {
     res.status(200).send("Post request received");
   }
@@ -77,7 +76,7 @@ router.post("/", (req, res) => {
   }
 });
 
-router.delete("/", (req, res) => {
+app.delete("/api/v1", (req, res) => {
   try {
     res.status(200).send("Delete request received");
   }
@@ -86,7 +85,5 @@ router.delete("/", (req, res) => {
     res.status(500).json({ error: "An error occurred while fetching data." });
   }
 });
-
-app.use("/api/v1", router);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
