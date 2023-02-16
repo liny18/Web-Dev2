@@ -167,7 +167,7 @@ function App() {
         const response = await fetch(`/node/api/v1/images?country=${query}`);
         const data = await response.json();
         setImageUrl(data.results[
-          randInt(0, data.results.length - 1)
+          randInt(0, (data.results).length - 1)
         ].urls.full);
       };
       fetchImage(country);
