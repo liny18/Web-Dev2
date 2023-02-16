@@ -4,10 +4,10 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 const router = express.Router();
-// const path = require("path");
+const path = require("path");
 
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, "..client/dist")));
+app.use(express.static(path.join(__dirname, "../client/dist"), { redirect: false }));
 
 router.get("/images", (req, res) => {
   const query = req.query.country;
@@ -58,34 +58,34 @@ router.get("/countries", (req, res) => {
     });
 });
 
-// router.put("/", (req, res) => {
-//   try {
-//   res.status(200).send("Put request received");
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "An error occurred while fetching data." });
-//   }
-// });
+router.put("/", (req, res) => {
+  try {
+  res.status(200).send("Put request received");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while fetching data." });
+  }
+});
 
-// router.post("/", (req, res) => {
-//   try {
-//     res.status(200).send("Post request received");
-//   }
-//   catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "An error occurred while fetching data." });
-//   }
-// });
+router.post("/", (req, res) => {
+  try {
+    res.status(200).send("Post request received");
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while fetching data." });
+  }
+});
 
-// router.delete("/", (req, res) => {
-//   try {
-//     res.status(200).send("Delete request received");
-//   }
-//   catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "An error occurred while fetching data." });
-//   }
-// });
+router.delete("/", (req, res) => {
+  try {
+    res.status(200).send("Delete request received");
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while fetching data." });
+  }
+});
 
 app.use("/api/v1", router);
 
