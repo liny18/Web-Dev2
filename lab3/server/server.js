@@ -4,10 +4,10 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 const router = express.Router();
-// const path = require("path");
+const path = require("path");
 
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 router.get("/images", (req, res) => {
   const query = req.query.country;
@@ -87,6 +87,6 @@ router.delete("/", (req, res) => {
   }
 });
 
-app.use("/api/v1", router);
+app.use("api/v1", router);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
