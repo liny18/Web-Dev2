@@ -3,10 +3,23 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
-const path = require("path");
+// const path = require("path");
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../client/dist")));
+// app.use(express.static(path.join(__dirname, "../client/dist")));
+
+app.get("/api/v1/all", async (req, res) => {
+  const Url = "https://restcountries.com/v3.1/all";
+  fetch(Url)
+    .then((response) => response.json())
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while fetching data." });
+    });
+});
 
 app.get("/api/v1/images", async (req, res) => {
   const query = req.query.country;
@@ -26,20 +39,6 @@ app.get("/api/v1/images", async (req, res) => {
       res.status(500).json({ error: "An error occurred while fetching data." });
     }
   );
-});
-
-app.get("https://liny18.eastus.cloudapp.azure.com/node/api/v1/all", async (req, res) => {
-  const Url = "https://restcountries.com/v3.1/all";
-
-  fetch(Url)
-    .then((response) => response.json())
-    .then((data) => {
-      res.status(200).json(data);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).json({ error: "An error occurred while fetching data." });
-    });
 });
 
 app.get("/api/v1/countries", async (req, res) => {
