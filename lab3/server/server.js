@@ -58,34 +58,34 @@ router.get("/countries", (req, res) => {
     });
 });
 
-router.put("/", (req, res) => {
-  try {
-  res.status(200).send("Put request received");
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "An error occurred while fetching data." });
-  }
-});
+// router.put("/", (req, res) => {
+//   try {
+//   res.status(200).send("Put request received");
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "An error occurred while fetching data." });
+//   }
+// });
 
-router.post("/", (req, res) => {
-  try {
-    res.status(200).send("Post request received");
-  }
-  catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "An error occurred while fetching data." });
-  }
-});
+// router.post("/", (req, res) => {
+//   try {
+//     res.status(200).send("Post request received");
+//   }
+//   catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "An error occurred while fetching data." });
+//   }
+// });
 
-router.delete("/", (req, res) => {
-  try {
-    res.status(200).send("Delete request received");
-  }
-  catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "An error occurred while fetching data." });
-  }
-});
+// router.delete("/", (req, res) => {
+//   try {
+//     res.status(200).send("Delete request received");
+//   }
+//   catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "An error occurred while fetching data." });
+//   }
+// });
 
 app.use("/api/v1", router);
 
