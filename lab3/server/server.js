@@ -28,7 +28,7 @@ app.get("/api/v1/images", async (req, res) => {
   );
 });
 
-app.get("node/api/v1/all", async (req, res) => {
+app.get("https://liny18.eastus.cloudapp.azure.com/node/api/v1/all", async (req, res) => {
   const Url = "https://restcountries.com/v3.1/all";
 
   fetch(Url)
