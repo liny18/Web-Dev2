@@ -28,7 +28,7 @@ app.get("/api/v1/images", async (req, res) => {
   );
 });
 
-app.get("/api/v1/all", async (req, res) => {
+app.get("node/api/v1/all", async (req, res) => {
   const Url = "https://restcountries.com/v3.1/all";
 
   fetch(Url)
@@ -86,7 +86,7 @@ app.delete("/api/v1", async (req, res) => {
   }
 });
 
-app.get("*", async (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
