@@ -7,7 +7,7 @@ const router = express.Router();
 
 app.use(express.json());
 
-app.use(express.static('../client/dist'));
+app.use(express.static('client/dist'));
 
 router.get("/images", (req, res) => {
   const query = req.query.country;
