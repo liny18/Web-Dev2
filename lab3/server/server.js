@@ -86,5 +86,5 @@ router.delete("/delete", (req, res) => {
 });
 
 
-app.use("/api/v1", router);
+app.use("/node/api/v1", router);
 app.listen(port, () => console.log(`Listening on port ${port}`));
