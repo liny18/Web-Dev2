@@ -3,17 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
-const path = require("path");
+const router = express.Router();
 
 app.use(express.json());
 
 app.use(express.static('../client/dist'));
 
-// app.get("/", (req, res) => {
-//   res.sendFile("index.html", { root: path.join(__dirname, "../client", "dist") });
-// });
-
-app.get("/api/v1/images", (req, res) => {
+router.get("/images", (req, res) => {
   const query = req.query.country;
   const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}`;
 
@@ -33,7 +29,7 @@ app.get("/api/v1/images", (req, res) => {
   );
 });
 
-app.get("/api/v1/all", (req, res) => {
+router.get("/all", (req, res) => {
   const Url = "https://restcountries.com/v3.1/all";
   fetch(Url)
     .then((response) => response.json())
@@ -46,7 +42,7 @@ app.get("/api/v1/all", (req, res) => {
     });
 });
 
-app.get("/api/v1/countries", (req, res) => {
+router.get("/countries", (req, res) => {
   const query = req.query.country;
   const Url = `https://restcountries.com/v3.1/name/${query}?fullText=true`;
   fetch(Url)
@@ -60,7 +56,7 @@ app.get("/api/v1/countries", (req, res) => {
     });
 });
 
-app.put("/api/v1", (req, res) => {
+router.put("/put", (req, res) => {
   try {
   res.status(200).send("Put request received");
   } catch (error) {
@@ -69,7 +65,7 @@ app.put("/api/v1", (req, res) => {
   }
 });
 
-app.post("/api/v1", (req, res) => {
+router.post("/post", (req, res) => {
   try {
     res.status(200).send("Post request received");
   }
@@ -79,7 +75,7 @@ app.post("/api/v1", (req, res) => {
   }
 });
 
-app.delete("/api/v1", (req, res) => {
+router.delete("/delete", (req, res) => {
   try {
     res.status(200).send("Delete request received");
   }
@@ -89,4 +85,6 @@ app.delete("/api/v1", (req, res) => {
   }
 });
 
+
+app.use("/api/v1", router);
 app.listen(port, () => console.log(`Listening on port ${port}`));
