@@ -16,11 +16,11 @@ function App() {
   const [secondsLeft, setSecondsLeft] = useState("");
   const [started, setStarted] = useState(false);
   const [end, setEnd] = useState(false);
-  const [score, setScore] = useState();
-  const [highestScore, setHighestScore] = useState( () => {
+  const [score, setScore] = useState("");
+  const [highestScore, setHighestScore] = useState(() => {
     const score = localStorage.getItem("highestScore");
     const name = localStorage.getItem("name");
-    return { score, name }; 
+    return { score, name };
   });
   const [sketchPickerColor, setSketchPickerColor] = useState({
     r: 241,
@@ -35,12 +35,20 @@ function App() {
   });
 
   useEffect(() => {
-    if (score > highestScore.score) { 
+    if (score > highestScore.score) {
       setHighestScore({ score, name });
       localStorage.setItem("highestScore", score);
       localStorage.setItem("name", name);
     }
   }, [score]);
+
+  const separateWithComma = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  // useEffect(() => {
+  //   separateWithComma(score);
+  // }, [score]);
 
   const calculateScore = () => {
     const r1 = borderColor.r;
@@ -119,10 +127,33 @@ function App() {
           </div>
         ) : (
           <div className="App text-slate-900 dark:text-slate-100">
+            <h2 className="text-md text-center mb-1">
+              Color was:{" "}
+              <span
+                style={{
+                  color: `rgb(${borderColor.r}, ${borderColor.g}, ${borderColor.b})`,
+                }}
+              >
+                {`rgb(${borderColor.r}, ${borderColor.g}, ${borderColor.b})`}
+              </span>
+            </h2>
+            <h2 className="text-md text-center mb-1">
+              Your guess:{" "}
+              <span
+                style={{
+                  color: `rgb(${sketchPickerColor.r}, ${sketchPickerColor.g}, ${sketchPickerColor.b})`,
+                }}
+              >
+                {`rgb(${sketchPickerColor.r}, ${sketchPickerColor.g}, ${sketchPickerColor.b})`}
+              </span>
+            </h2>
             <h1 className="text-4xl text-center mb-3">Game Over</h1>
-            <h2 className="text-2xl text-center mb-3">Your Score: {score}</h2>
-            <h2 className="text-2xl text-center mb-3">
-              Highest Score: {highestScore.score} by {highestScore.name}
+            <h2 className="text-xl text-center mb-3">
+              Your Score: {separateWithComma(score)}
+            </h2>
+            <h2 className="text-xl text-center mb-3">
+              Highest Score: {separateWithComma(highestScore.score)} by{" "}
+              {highestScore.name}
             </h2>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded dark:bg-gray-800 dark:text-gray-200"
