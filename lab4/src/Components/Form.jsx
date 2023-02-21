@@ -10,12 +10,12 @@ export const Form = ( props ) => {
       alert("What's your gamer tag?");
       return;
     }
-    if (seconds < 1 || seconds > 100) {
-      alert("Please enter a number between 1 and 100");
-      return;
-    }
     if (seconds === "") {
       setSeconds(60);
+    }
+    else if (seconds < 1 || seconds > 100) {
+      alert("Please enter a number between 1 and 100");
+      return;
     }
     setClicked(true);
     setStarted(true);
