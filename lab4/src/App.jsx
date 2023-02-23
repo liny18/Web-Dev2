@@ -17,7 +17,6 @@ function App() {
   const [started, setStarted] = useState(false);
   const [end, setEnd] = useState(false);
   const [score, setScore] = useState("");
-  const [highScore, setHighScore] = useState("");
   const [highestScore, setHighestScore] = useState(() => {
     const score = localStorage.getItem("highestScore") || 0;
     const name = localStorage.getItem("name") || "";
