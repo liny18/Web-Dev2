@@ -105,16 +105,25 @@ router.put("/db/:number?", async (req, res) => {
     await client.connect();
     const database = client.db("lab5");
     const collection = database.collection("countries");
-
     if (number) {
-      const result = await collection.updateOne(
-        { id: parseInt(number) },
-        { $set: updates }
-      );
-      if (result.modifiedCount === 0) {
+      const existingCountry = await collection.findOne({
+        id: parseInt(number),
+      });
+      if (!existingCountry) {
         res.status(404).json({ error: "Country not found" });
       } else {
-        res.status(200).json({ message: "Country updated successfully" });
+        const hasUpdates = Object.keys(updates).some((key) => {
+          updates[key] !== existingCountry[key];
+        });
+        if (!hasUpdates) {
+          res.status(400).json({ error: "No changes in the update request" });
+        } else {
+          const result = await collection.updateOne(
+            { id: parseInt(number) },
+            { $set: updates }
+          );
+          res.status(200).json({ message: "Country updated successfully" });
+        }
       }
     } else {
       const result = await collection.updateMany({}, { $set: updates });
