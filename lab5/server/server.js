@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 const router = express.Router();
 
 app.use(express.json());
-// app.use("/lab3",express.static('../client/dist'));
+app.use("/lab5", express.static("../client/dist"));
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER_URL}/?${process.env.MONGO_OPTIONS}`;
@@ -112,9 +112,7 @@ router.put("/db/:number?", async (req, res) => {
       if (!existingCountry) {
         res.status(404).json({ error: "Country not found" });
       } else {
-        const hasUpdates = Object.keys(updates).some((key) => {
-          updates[key] !== existingCountry[key];
-        });
+        const hasUpdates = updates.name !== existingCountry.name;
         if (!hasUpdates) {
           res.status(400).json({ error: "No changes in the update request" });
         } else {
@@ -223,25 +221,24 @@ router.delete("/delete", (req, res) => {
   }
 });
 
-// router.get("/images", (req, res) => {
-//   const query = req.query.country;
-//   const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}`;
+router.get("/images", (req, res) => {
+  const query = req.query.country;
+  const unsplashUrl = `https://api.unsplash.com/search/photos?query=${query}`;
 
-//   fetch(unsplashUrl, {
-//     headers: {
-//       Authorization: `Client-ID ${process.env.REACT_UNSPLASH_ACCESS_KEY}`,
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       res.status(200).json(data);
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       res.status(500).json({ error: "An error occurred while fetching data." });
-//     }
-//   );
-// });
+  fetch(unsplashUrl, {
+    headers: {
+      Authorization: `Client-ID ${process.env.REACT_UNSPLASH_ACCESS_KEY}`,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while fetching data." });
+    });
+});
 
 app.use("/api/v1", router);
 app.listen(port, () => console.log(`Listening on port ${port}`));
