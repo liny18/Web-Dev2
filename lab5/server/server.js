@@ -85,7 +85,8 @@ router.post("/db/:number?", async (req, res) => {
       const database = client.db("lab5");
       const collection = database.collection("countries");
       const result = await collection.insertOne(newCountry);
-      res.status(201).json(result.ops[0]);
+      console.log(result.ops);
+      res.status(201).json({ message: "Country added successfully" });
     } catch (error) {
       console.error(error);
       res
@@ -139,8 +140,12 @@ router.delete("/db/:number?", async (req, res) => {
     const collection = database.collection("countries");
 
     if (number) {
-      await collection.deleteOne({ id: parseInt(number) });
-      res.status(200).json({ message: "Country deleted successfully" });
+      const result = await collection.deleteOne({ id: parseInt(number) });
+      if (result.deletedCount === 0) {
+        res.status(404).json({ error: "Country not found" });
+      } else {
+        res.status(200).json({ message: "Country deleted successfully" });
+      }
     } else {
       await collection.deleteMany({});
       res.status(200).json({ message: "All countries deleted successfully" });
