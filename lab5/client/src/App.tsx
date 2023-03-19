@@ -161,25 +161,25 @@ function App() {
     return result;
   };
 
-  // useEffect(() => {
-  //   try {
-  //     const fetchImage = async (query: string) => {
-  //       const response = await fetch(`/api/v1/images?country=${query}`);
-  //       const data = await response.json();
-  //       setImageUrl(data.results[
-  //         randInt(0, (data.results).length - 1)
-  //       ].urls.full);
-  //     };
-  //     fetchImage(country);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [country]);
+  useEffect(() => {
+    try {
+      const fetchImage = async (query: string) => {
+        const response = await fetch(`/node/api/v1/images?country=${query}`);
+        const data = await response.json();
+        setImageUrl(
+          data.results[randInt(0, data.results.length - 1)].urls.full
+        );
+      };
+      fetchImage(country);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [country]);
 
   useEffect(() => {
     try {
       const fetchAll = async () => {
-        const response = await fetch("/api/v1/all");
+        const response = await fetch("/node/api/v1/all");
         const data = await response.json();
         setAllCountries(getAllCountries(data));
       };
@@ -192,7 +192,7 @@ function App() {
   useEffect(() => {
     try {
       const fetchCountry = async (query: string) => {
-        const response = await fetch(`/api/v1/countries?country=${query}`);
+        const response = await fetch(`/node/api/v1/countries?country=${query}`);
         const data = await response.json();
         setAllTranslations(getAllTranslations(data[0].translations));
         setSelectedTranslation("ENG");
