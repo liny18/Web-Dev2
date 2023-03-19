@@ -15,7 +15,7 @@ router.get("/images", (req, res) => {
 
   fetch(unsplashUrl, {
     headers: {
-      Authorization: `Client-ID ${process.env.REACT_UNSPLASH_ACCESS_KEY}`,
+      Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
     },
   })
     .then((response) => response.json())
