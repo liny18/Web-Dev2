@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 const router = express.Router();
 
 app.use(express.json());
-app.use("/lab5", express.static("client/dist"));
+app.use("/lab5", express.static("../client/dist"));
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER_URL}/?${process.env.MONGO_OPTIONS}`;
