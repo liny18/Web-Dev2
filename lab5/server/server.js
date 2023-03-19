@@ -7,6 +7,41 @@ const router = express.Router();
 
 app.use(express.json());
 
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER_URL}/?${process.env.MONGO_OPTIONS}`;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+async function get100Countries() {
+  try {
+    const response = await fetch('https://restcountries.com/v3.1/all');
+    const countries = await response.json();
+    const sortedCountries = countries.sort((a, b) => b.population - a.population);
+    const top100Countries = sortedCountries.slice(0, 100);
+    const countryNames = top100Countries.map((country) => country.name.common);
+    return countryNames;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function populateDB() {
+  try {
+    await client.connect();
+    const database = client.db("lab5");
+    const collection = database.collection("countries");
+    const countries = await get100Countries();
+    for (let i = 0; i < 100; i++) {
+      const countryObj = { name: countries[i] };
+      await collection.insertOne(countryObj);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  finally {
+    await client.close();
+  }
+}
+
 // app.use("/lab3",express.static('../client/dist'));
 
 // router.get("/images", (req, res) => {
