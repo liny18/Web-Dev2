@@ -11,9 +11,9 @@ export const Form: React.FC = () => {
   };
 
   const isValidRequestBody = (input: string): boolean => {
-    const regex = /^\s*\{\s*"id"\s*:\s*\d+\s*,\s*"name"\s*:\s*"[^"]+"\s*\}\s*$/;
+    const regex = /^\s*\{\s*"id"\s*:\s*\d+\s*,\s*"name"\s*:\s*"[^"]+"\s*,\s*"Capital"\s*:\s*"[^"]+"\s*,\s*"Currency"\s*:\s*"[^"]+"\s*,\s*"Code"\s*:\s*"[^"]+"\s*\}\s*$/;
     return regex.test(input);
-  };
+  };  
 
   const handleRequest = async (verb: string) => {
     if (
@@ -21,12 +21,12 @@ export const Form: React.FC = () => {
       !isValidRequestBody(requestBody)
     ) {
       alert(
-        'Invalid request body format. Please follow the format: {"id": 1, "name": "China"}'
+        'Invalid request body format. Please follow the format: {"id": 1, "name": "China", "Capital": "Beijing", "Currency": "Yuan", "Code": "CN"}'
       );
       return;
     }
     try {
-      const apiUrl = number ? `/node/api/v1/db/${number}` : `/node/api/v1/db`;
+      const apiUrl = number == "0" || !number ? `/node/api/v1/db` : `/node/api/v1/db/${number}` ;
       const config: RequestInit = {
         method: verb,
         headers: { "Content-Type": "application/json" },
@@ -68,7 +68,7 @@ export const Form: React.FC = () => {
               className="border-2 border-gray-300 rounded-md ml-3"
               value={requestBody}
               onChange={(e) => setRequestBody(e.target.value)}
-              placeholder='{"id": 1, "name": "China"}'
+              placeholder='{"id": 1, "name": "China", "Capital": "Beijing", "Currency": "Yuan", "Code": "CN"}'
             />
           </div>
           <div className="mt-2 flex justify-between">

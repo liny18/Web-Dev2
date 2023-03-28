@@ -31,15 +31,165 @@ async function get100Countries() {
   }
 }
 
+async function fetchData(
+  url,
+  method = "GET",
+  body = {},
+  params = {},
+  headers = {}
+) {
+  // Convert the params object to a query string
+  const queryString = new URLSearchParams(params).toString();
+
+  // Append the query string to the URL if it exists
+  const requestUrl = queryString ? `${url}?${queryString}` : url;
+
+  const response = await fetch(requestUrl, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      ...headers,
+    },
+    body: method === "POST" ? JSON.stringify(body) : undefined,
+  });
+
+  return await response.json();
+}
+
+function buildCountryObject(name, capital, currency, code) {
+  return {
+    name,
+    capital,
+    currency,
+    code,
+  };
+}
+
+async function countriesnowAPI(country) {
+  try {
+    const capitalData = await fetchData(
+      "https://countriesnow.space/api/v0.1/countries/capital",
+      "POST",
+      { country }
+    );
+    const currencyData = await fetchData(
+      "https://countriesnow.space/api/v0.1/countries/currency",
+      "POST",
+      { country }
+    );
+    const codeData = await fetchData(
+      "https://countriesnow.space/api/v0.1/countries/iso",
+      "POST",
+      { country }
+    );
+    console.log(
+      buildCountryObject(
+        country,
+        capitalData.data.capital,
+        currencyData.data.currency,
+        codeData.data.Iso2
+      )
+    );
+
+    return buildCountryObject(
+      country,
+      capitalData.data.capital,
+      currencyData.data.currency,
+      codeData.data.Iso2
+    );
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function NinjaAPI(country) {
+  try {
+    const data = await fetchData(
+      "https://api.api-ninjas.com/v1/country",
+      "GET",
+      {},
+      { name: country },
+      { "X-Api-Key": process.env.REACT_NINJA_API_KEY }
+    );
+    return buildCountryObject(
+      country,
+      data[0].capital,
+      data[0].currency.code,
+      data[0].iso2
+    );
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function CountryAPI(country) {
+  try {
+    const data = await fetchData(
+      `https://countryapi.io/api/name/${country}`,
+      "GET",
+      {},
+      { apikey: process.env.REACT_COUNTRY_API_KEY }
+    );
+    return buildCountryObject(
+      country,
+      data[key].capital,
+      Object.keys(data[key].currencies)[0],
+      data[key].alpha2Code
+    );
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function RestAPI(country) {
+  try {
+    const data = await fetchData(
+      `https://restcountries.com/v3.1/name/${country}`,
+      "GET",
+      {},
+      { fullText: "true" }
+    );
+
+    return buildCountryObject(
+      data[0].name.common,
+      data[0].capital[0],
+      Object.keys(data[0].currencies)[0],
+      data[0].cca2
+    );
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function populateDB() {
   try {
     await client.connect();
-    const database = client.db("lab5");
-    const collection = database.collection("countries");
     const countries = await get100Countries();
+
+    let id = 1;
     for (let i = 0; i < 100; i++) {
-      const countryObj = { id: i + 1, name: countries[i] };
-      await collection.insertOne(countryObj);
+      const apiResults = await Promise.allSettled([
+        countriesnowAPI(countries[i]),
+        NinjaAPI(countries[i]),
+        CountryAPI(countries[i]),
+        RestAPI(countries[i]),
+      ]);
+
+      for (const result of apiResults) {
+        if (result.status === "fulfilled" && result.value) {
+          const country = result.value;
+          await collection.insertOne({
+            id,
+            name: country.name,
+            capital: country.capital,
+            currency: country.currency,
+            code: country.code,
+          });
+          id++;
+        } else {
+          console.error(`Failed API result for country: ${countries[i]}`);
+        }
+      }
     }
   } catch (error) {
     console.error(error);
@@ -48,11 +198,13 @@ async function populateDB() {
   }
 }
 
+// populateDB();
+
 router.get("/db/:number?", async (req, res) => {
   try {
     const number = req.params.number;
     await client.connect();
-    const database = client.db("lab5");
+    const database = client.db("lab6");
     const collection = database.collection("countries");
 
     if (number) {
@@ -82,7 +234,7 @@ router.post("/db/:number?", async (req, res) => {
     try {
       const newCountry = req.body;
       await client.connect();
-      const database = client.db("lab5");
+      const database = client.db("lab6");
       const collection = database.collection("countries");
       const result = await collection.insertOne(newCountry);
       console.log(result.ops);
@@ -103,7 +255,7 @@ router.put("/db/:number?", async (req, res) => {
   const updates = req.body;
   try {
     await client.connect();
-    const database = client.db("lab5");
+    const database = client.db("lab6");
     const collection = database.collection("countries");
     if (number) {
       const existingCountry = await collection.findOne({
@@ -112,16 +264,11 @@ router.put("/db/:number?", async (req, res) => {
       if (!existingCountry) {
         res.status(404).json({ error: "Country not found" });
       } else {
-        const hasUpdates = updates.name !== existingCountry.name;
-        if (!hasUpdates) {
-          res.status(400).json({ error: "No changes in the update request" });
-        } else {
-          const result = await collection.updateOne(
-            { id: parseInt(number) },
-            { $set: updates }
-          );
-          res.status(200).json({ message: "Country updated successfully" });
-        }
+        const result = await collection.updateOne(
+          { id: parseInt(number) },
+          { $set: updates }
+        );
+        res.status(200).json({ message: "Country updated successfully" });
       }
     } else {
       const result = await collection.updateMany({}, { $set: updates });
@@ -143,7 +290,7 @@ router.delete("/db/:number?", async (req, res) => {
   const number = req.params.number;
   try {
     await client.connect();
-    const database = client.db("lab5");
+    const database = client.db("lab6");
     const collection = database.collection("countries");
 
     if (number) {
