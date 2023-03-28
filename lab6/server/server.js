@@ -165,7 +165,8 @@ async function populateDB() {
   try {
     await client.connect();
     const countries = await get100Countries();
-
+    const database = client.db("lab6");
+    const collection = database.collection("countries");
     let id = 1;
     for (let i = 0; i < 100; i++) {
       const apiResults = await Promise.allSettled([
