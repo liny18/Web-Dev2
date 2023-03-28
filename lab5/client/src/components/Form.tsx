@@ -35,7 +35,11 @@ export const Form: React.FC = () => {
 
       const result = await fetch(apiUrl, config);
       const data = await result.json();
+      if (verb === "GET") {
       setResponse(JSON.stringify(number? data.name : data.map((item: any) => item.name), null, 2));
+      } else {
+        setResponse(JSON.stringify(data, null, 2));
+      }
     } catch (error) {
       setResponse(JSON.stringify(error, null, 2));
     }
