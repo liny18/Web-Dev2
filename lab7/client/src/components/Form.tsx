@@ -11,9 +11,10 @@ export const Form: React.FC = () => {
   };
 
   const isValidRequestBody = (input: string): boolean => {
-    const regex = /^\s*\{\s*"id"\s*:\s*\d+\s*,\s*"name"\s*:\s*"[^"]+"\s*,\s*"Capital"\s*:\s*"[^"]+"\s*,\s*"Currency"\s*:\s*"[^"]+"\s*,\s*"Code"\s*:\s*"[^"]+"\s*\}\s*$/;
+    const regex =
+      /^\s*\{\s*"id"\s*:\s*\d+\s*,\s*"name"\s*:\s*"[^"]+"\s*,\s*"Capital"\s*:\s*"[^"]+"\s*,\s*"Currency"\s*:\s*"[^"]+"\s*,\s*"Code"\s*:\s*"[^"]+"\s*\}\s*$/;
     return regex.test(input);
-  };  
+  };
 
   const handleRequest = async (verb: string) => {
     if (
@@ -26,7 +27,10 @@ export const Form: React.FC = () => {
       return;
     }
     try {
-      const apiUrl = number == "0" || !number ? `/node/api/v1/db` : `/node/api/v1/db/${number}` ;
+      const apiUrl =
+        number == "0" || !number
+          ? `/node/api/v1/db`
+          : `/node/api/v1/db/${number}`;
       const config: RequestInit = {
         method: verb,
         headers: { "Content-Type": "application/json" },
@@ -36,7 +40,13 @@ export const Form: React.FC = () => {
       const result = await fetch(apiUrl, config);
       const data = await result.json();
       if (verb === "GET") {
-      setResponse(JSON.stringify(number? data.name : data.map((item: any) => item.name), null, 2));
+        setResponse(
+          JSON.stringify(
+            number ? data.name : data.map((item: any) => item.name),
+            null,
+            2
+          )
+        );
       } else {
         setResponse(JSON.stringify(data, null, 2));
       }

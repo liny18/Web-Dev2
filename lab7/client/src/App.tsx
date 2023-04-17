@@ -4,6 +4,8 @@ import { Header } from "./components/Header";
 import { Navbar } from "./components/Navbar";
 import { Card } from "./components/Card";
 import { Info } from "./components/Info";
+import WorldMap from "./components/WorldMap/WorldMap";
+import data from "./components/WorldMap/data.json";
 
 export const UserContext = createContext<{
   allTranslations: { [key: string]: { common: string; official: string } }[];
@@ -260,6 +262,7 @@ function App() {
       >
         <Header />
         <Navbar />
+        <WorldMap data={data} />
         <Info />
         <Card />
       </div>
