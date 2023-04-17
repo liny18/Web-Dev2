@@ -1,0 +1,332 @@
+[
+  {
+    "name": "United States",
+    "capital": "Washington D.C.",
+    "currency": "United States Dollar (USD)",
+    "code": "840"
+  },
+  {
+    "name": "Canada",
+    "capital": "Ottawa",
+    "currency": "Canadian Dollar (CAD)",
+    "code": "124"
+  },
+  {
+    "name": "United Kingdom",
+    "capital": "London",
+    "currency": "Pound Sterling (GBP)",
+    "code": "826"
+  },
+  {
+    "name": "Germany",
+    "capital": "Berlin",
+    "currency": "Euro (EUR)",
+    "code": "978"
+  },
+  {
+    "name": "France",
+    "capital": "Paris",
+    "currency": "Euro (EUR)",
+    "code": "978"
+  },
+  {
+    "name": "Italy",
+    "capital": "Rome",
+    "currency": "Euro (EUR)",
+    "code": "978"
+  },
+  {
+    "name": "China",
+    "capital": "Beijing",
+    "currency": "Yuan Renminbi (CNY)",
+    "code": "156"
+  },
+  {
+    "name": "Japan",
+    "capital": "Tokyo",
+    "currency": "Japanese Yen (JPY)",
+    "code": "392"
+  },
+  {
+    "name": "South Korea",
+    "capital": "Seoul",
+    "currency": "South Korean Won (KRW)",
+    "code": "410"
+  },
+  {
+    "name": "Australia",
+    "capital": "Canberra",
+    "currency": "Australian Dollar (AUD)",
+    "code": "036"
+  },
+  {
+    "name": "New Zealand",
+    "capital": "Wellington",
+    "currency": "New Zealand Dollar (NZD)",
+    "code": "554"
+  },
+  {
+    "name": "India",
+    "capital": "New Delhi",
+    "currency": "Indian Rupee (INR)",
+    "code": "356"
+  },
+  {
+    "name": "Brazil",
+    "capital": "Brasília",
+    "currency": "Brazilian Real (BRL)",
+    "code": "986"
+  },
+  {
+    "name": "Mexico",
+    "capital": "Mexico City",
+    "currency": "Mexican Peso (MXN)",
+    "code": "484"
+  },
+  {
+    "name": "Argentina",
+    "capital": "Buenos Aires",
+    "currency": "Argentine Peso (ARS)",
+    "code": "032"
+  },
+  {
+    "name": "Russia",
+    "capital": "Moscow",
+    "currency": "Russian Ruble (RUB)",
+    "code": "643"
+  },
+  {
+    "name": "Spain",
+    "capital": "Madrid",
+    "currency": "Euro (EUR)",
+    "code": "978"
+  },
+  {
+    "name": "Nigeria",
+    "capital": "Abuja",
+    "currency": "Naira (NGN)",
+    "code": "566"
+  },
+  {
+    "name": "South Africa",
+    "capital": "Pretoria, Cape Town, Bloemfontein",
+    "currency": "South African Rand (ZAR)",
+    "code": "710"
+  },
+  {
+    "name": "Brazil",
+    "capital": "Brasília",
+    "currency": "Brazilian Real (BRL)",
+    "code": "986"
+  },
+  {
+    "name": "Argentina",
+    "capital": "Buenos Aires",
+    "currency": "Argentine Peso (ARS)",
+    "code": "032"
+  },
+  {
+    "name": "Chile",
+    "capital": "Santiago",
+    "currency": "Chilean Peso (CLP)",
+    "code": "152"
+  },
+  {
+    "name": "Colombia",
+    "capital": "Bogotá",
+    "currency": "Colombian Peso (COP)",
+    "code": "170"
+  },
+  {
+    "name": "Peru",
+    "capital": "Lima",
+    "currency": "Sol (PEN)",
+    "code": "604"
+  },
+  {
+    "name": "Bolivia",
+    "capital": "La Paz (administrative) and Sucre (judicial)",
+    "currency": "Boliviano (BOB)",
+    "code": "068"
+  },
+  {
+    "name": "Paraguay",
+    "capital": "Asunción",
+    "currency": "Guarani (PYG)",
+    "code": "600"
+  },
+  {
+    "name": "Uruguay",
+    "capital": "Montevideo",
+    "currency": "Uruguayan Peso (UYU)",
+    "code": "858"
+  },
+  {
+    "name": "Australia",
+    "capital": "Canberra",
+    "currency": "Australian Dollar (AUD)",
+    "code": "036"
+  },
+  {
+    "name": "New Zealand",
+    "capital": "Wellington",
+    "currency": "New Zealand Dollar (NZD)",
+    "code": "554"
+  },
+  {
+    "name": "Japan",
+    "capital": "Tokyo",
+    "currency": "Yen (JPY)",
+    "code": "392"
+  },
+  {
+    "name": "South Korea",
+    "capital": "Seoul",
+    "currency": "Won (KRW)",
+    "code": "410"
+  },
+  {
+    "name": "India",
+    "capital": "New Delhi",
+    "currency": "Indian Rupee (INR)",
+    "code": "356"
+  },
+  {
+    "name": "Pakistan",
+    "capital": "Islamabad",
+    "currency": "Pakistani Rupee (PKR)",
+    "code": "586"
+  },
+  {
+    "name": "Bangladesh",
+    "capital": "Dhaka",
+    "currency": "Bangladeshi Taka (BDT)",
+    "code": "050"
+  },
+  {
+    "name": "Indonesia",
+    "capital": "Jakarta",
+    "currency": "Rupiah (IDR)",
+    "code": "360"
+  },
+  {
+    "name": "Philippines",
+    "capital": "Manila",
+    "currency": "Philippine Peso (PHP)",
+    "code": "608"
+  },
+  {
+    "name": "Norway",
+    "capital": "Oslo",
+    "currency": "Norwegian krone (NOK)",
+    "code": "578"
+  },
+  {
+    "name": "Sweden",
+    "capital": "Stockholm",
+    "currency": "Swedish krona (SEK)",
+    "code": "752"
+  },
+  {
+    "name": "Finland",
+    "capital": "Helsinki",
+    "currency": "Euro (EUR)",
+    "code": "978"
+  },
+  {
+    "name": "Denmark",
+    "capital": "Copenhagen",
+    "currency": "Danish krone (DKK)",
+    "code": "208"
+  },
+  {
+    "name": "Netherlands",
+    "capital": "Amsterdam",
+    "currency": "Euro (EUR)",
+    "code": "978"
+  },
+  {
+    "name": "Belgium",
+    "capital": "Brussels",
+    "currency": "Euro (EUR)",
+    "code": "978"
+  },
+  {
+    "name": "Switzerland",
+    "capital": "Bern",
+    "currency": "Swiss franc (CHF)",
+    "code": "756"
+  },
+  {
+    "name": "Austria",
+    "capital": "Vienna",
+    "currency": "Euro (EUR)",
+    "code": "978"
+  },
+  {
+    "name": "Greece",
+    "capital": "Athens",
+    "currency": "Euro (EUR)",
+    "code": "978"
+  },
+  {
+    "name": "Turkey",
+    "capital": "Ankara",
+    "currency": "Turkish lira (TRY)",
+    "code": "949"
+  },
+  {
+    "name": "Israel",
+    "capital": "Jerusalem",
+    "currency": "Israeli new shekel (ILS)",
+    "code": "376"
+  },
+  {
+    "name": "Saudi Arabia",
+    "capital": "Riyadh",
+    "currency": "Saudi riyal (SAR)",
+    "code": "682"
+  },
+  {
+    "name": "United Arab Emirates",
+    "capital": "Abu Dhabi",
+    "currency": "United Arab Emirates dirham (AED)",
+    "code": "784"
+  },
+  {
+    "name": "Egypt",
+    "capital": "Cairo",
+    "currency": "Egyptian pound (EGP)",
+    "code": "818"
+  },
+  {
+    "name": "South Africa",
+    "capital": "Pretoria, Cape Town, Bloemfontein",
+    "currency": "South African rand (ZAR)",
+    "code": "710"
+  },
+  {
+    "name": "Nigeria",
+    "capital": "Abuja",
+    "currency": "Nigerian naira (NGN)",
+    "code": "566"
+  },
+  {
+    "name": "Morocco",
+    "capital": "Rabat",
+    "currency": "Moroccan dirham (MAD)",
+    "code": "504"
+  },
+  {
+    "name": "Algeria",
+    "capital": "Algiers",
+    "currency": "Algerian dinar (DZD)",
+    "code": "012"
+  },
+  {
+    "name": "Tunisia",
+    "capital": "Tunis",
+    "currency": "Tunisian dinar (TND)",
+    "code": "788"
+  }
+]
